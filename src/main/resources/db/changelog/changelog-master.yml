@@ -1,0 +1,102 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: f.leandro@entando.com
+      changes:
+        - createTable:
+            tableName: surveys
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+              - column:
+                  name: description
+                  type: varchar(255)
+
+        - createTable:
+            tableName: question_text
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: question
+                  type: varchar(255)
+              - column:
+                  name: type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: minLength
+                  type: int
+              - column:
+                  name: maxLength
+                  type: int
+
+        - createTable:
+            tableName: question_rate
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: question
+                  type: varchar(255)
+              - column:
+                  name: type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: minRate
+                  type: int
+              - column:
+                  name: maxRate
+                  type: int
+
+        - createTable:
+            tableName: question_list
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: question
+                  type: varchar(255)
+              - column:
+                  name: type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: multiple_choice
+                  type: boolean
+              - column:
+                  name: options
+                  type: blob
+
+      rollback:
+        - dropTable:
+            tableName: surveys
+        - dropTable:
+            tableName: question_text
+        - dropTable:
+            tableName: question_rate
+        - dropTable:
+            tableName: question_list
