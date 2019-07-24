@@ -1,14 +1,15 @@
 package org.entando.plugins.survey.service;
 
+import lombok.RequiredArgsConstructor;
 import org.entando.plugins.survey.exception.SurveyNotFoundException;
 import org.entando.plugins.survey.exception.SurveySubmissionNotFoundException;
-import org.entando.plugins.survey.model.*;
-import org.entando.plugins.survey.model.question.QuestionList;
-import org.entando.plugins.survey.model.question.QuestionRate;
-import org.entando.plugins.survey.model.question.QuestionText;
+import org.entando.plugins.survey.model.AnswerQuestion;
+import org.entando.plugins.survey.model.BasePage;
+import org.entando.plugins.survey.model.BasePageable;
+import org.entando.plugins.survey.model.Survey;
+import org.entando.plugins.survey.model.SurveySubmission;
 import org.entando.plugins.survey.repository.SurveyRepository;
 import org.entando.plugins.survey.repository.SurveySubmissionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +18,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class SurveyServiceImpl implements SurveyService {
 
     private final SurveySubmissionRepository surveySubmissionRepository;
     private final SurveyRepository surveyRepository;
-
-    @Autowired
-    public SurveyServiceImpl(final SurveySubmissionRepository surveySubmissionRepository, final SurveyRepository surveyRepository) {
-        this.surveySubmissionRepository = surveySubmissionRepository;
-        this.surveyRepository = surveyRepository;
-    }
 
     @Override
     public Survey get(final String uuid) {
