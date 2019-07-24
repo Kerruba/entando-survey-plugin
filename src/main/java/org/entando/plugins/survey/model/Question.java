@@ -34,6 +34,9 @@ public abstract class Question {
     @Column(name = "question")
     protected String question;
 
+    @Column(name = "norder")
+    protected int order;
+
     @ManyToOne(optional = false)
     @JoinColumn(name="survey_id")
     protected Survey survey;

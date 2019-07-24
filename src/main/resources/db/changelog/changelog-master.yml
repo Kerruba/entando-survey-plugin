@@ -37,6 +37,9 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: norder
+                  type: int
+              - column:
                   name: survey_id
                   type: uuid
                   constraints:

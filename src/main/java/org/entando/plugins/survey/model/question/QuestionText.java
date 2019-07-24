@@ -26,8 +26,8 @@ public class QuestionText extends Question {
     protected int maxLength;
 
     @Builder
-    public QuestionText(UUID id, String question, Survey survey, int minLength, int maxLength) {
-        super(id, QuestionType.text, question, survey);
+    public QuestionText(UUID id, String question, int order, Survey survey, int minLength, int maxLength) {
+        super(id, QuestionType.text, question, order, survey);
 
         this.minLength = minLength;
         this.maxLength = maxLength;
@@ -37,6 +37,7 @@ public class QuestionText extends Question {
     public QuestionDto toDto() {
         return QuestionTextDto.builder()
                 .id(id.toString())
+                .order(order)
                 .question(question)
                 .minLength(minLength)
                 .maxLength(maxLength)

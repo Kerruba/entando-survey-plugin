@@ -26,8 +26,8 @@ public class QuestionRate extends Question {
     protected int maxRate;
 
     @Builder
-    public QuestionRate(UUID id, String question, Survey survey, int minRate, int maxRate) {
-        super(id, QuestionType.rate, question, survey);
+    public QuestionRate(UUID id, String question, int order, Survey survey, int minRate, int maxRate) {
+        super(id, QuestionType.rate, question, order, survey);
 
         this.minRate = minRate;
         this.maxRate = maxRate;
@@ -37,6 +37,7 @@ public class QuestionRate extends Question {
     public QuestionDto toDto() {
         return QuestionRateDto.builder()
                 .id(id.toString())
+                .order(order)
                 .question(question)
                 .minRate(minRate)
                 .maxRate(maxRate)

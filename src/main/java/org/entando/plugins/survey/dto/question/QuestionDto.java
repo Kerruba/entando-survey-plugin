@@ -3,8 +3,10 @@ package org.entando.plugins.survey.dto.question;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.entando.plugins.survey.model.Question;
 
+@Data
 @AllArgsConstructor
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
@@ -14,8 +16,9 @@ import org.entando.plugins.survey.model.Question;
 })
 public abstract class QuestionDto {
     String id;
-    Question.QuestionType type;
+    //Question.QuestionType type;
     String question;
+    int order;
 
     public abstract Question toModel();
 }

@@ -25,9 +25,11 @@ public class CreateSurveyRequest {
                 .title(title)
                 .description(description);
 
+        int order = 0;
         for(QuestionDto dto: questions) {
             Question question = dto.toModel();
             question.setSurvey(Survey.builder().id(surveyId).build());
+            question.setOrder(order++);
 
             builder.question(question);
         }

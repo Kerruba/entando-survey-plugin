@@ -26,8 +26,8 @@ public class QuestionList extends Question {
     protected boolean multipleChoice;
 
     @Builder
-    public QuestionList(UUID id, String question, Survey survey, boolean multipleChoice, @Singular List<QuestionListOption> options) {
-        super(id, QuestionType.list, question, survey);
+    public QuestionList(UUID id, String question, int order, Survey survey, boolean multipleChoice, @Singular List<QuestionListOption> options) {
+        super(id, QuestionType.list, question, order, survey);
 
         this.multipleChoice = multipleChoice;
         this.options = options;
@@ -37,6 +37,7 @@ public class QuestionList extends Question {
     public QuestionDto toDto() {
         QuestionListDto.QuestionListDtoBuilder builder = QuestionListDto.builder()
                 .id(id.toString())
+                .order(order)
                 .question(question)
                 .multipleChoice(multipleChoice);
 
