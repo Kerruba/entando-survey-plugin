@@ -1,0 +1,42 @@
+.question-container { 
+  font-family: 'Titillium Web', sans-serif;
+  padding: 20px;
+}
+
+.question { 
+  font-weight: 700;
+  font-size: 30px;
+  padding-bottom: 20px;
+  color: rgba(0,0,0,0.7);
+}
+
+.option {
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  font-size: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  padding: 0 30px;
+}
+
+.option + .option {
+  margin-top: 20px;
+  margin-left: 0;
+}
+
+.length {
+  display: block;
+  width: 100%;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: right
+}
+
+.help {
+  display: block;
+  width: 100%;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: 4px;
+}

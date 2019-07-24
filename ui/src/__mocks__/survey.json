@@ -1,0 +1,41 @@
+{
+  "id": "982fb709-6148-4fc8-890f-1058ade6e134",
+  "title": "INAIL POC",
+  "description": "Sample Survey for INAIL POC",
+  "questions": [
+    {
+      "id": "7aae5609-da9a-491b-bc5c-921ac2a2d7ab",
+      "type": "list",
+      "question": "What is the best programming language in your opinion?",
+      "options": [
+        {
+          "key": "javascript",
+          "label": "Javascript"
+        },
+        {
+          "key": "golang",
+          "label": "Go"
+        },
+        {
+          "key": "java",
+          "label": "Java"
+        }
+      ],
+      "multipleChoice": false
+    },
+    {
+      "id": "3e7a1072-e20f-4362-8a27-b5aba6ac07a0",
+      "type": "text",
+      "question": "Describe your experience with this programming language",
+      "minLength": 10,
+      "maxLength": 200
+    },
+    {
+      "id": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
+      "type": "rate",
+      "question": "From 0 to 10, what is your level of expertise with this programming language",
+      "minRate": 0,
+      "maxRate": 10
+    }
+  ]
+}
