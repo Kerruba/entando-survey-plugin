@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.entando</groupId>
-    <artifactId>entando-plugin-questionnaire</artifactId>
+    <artifactId>entando-survey-plugin</artifactId>
     <version>5.2.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
-    <name>Entando Questionnaire Plugin</name>
+    <name>Entando Survey Plugin</name>
     <description>The plugin component to manage Entando Questionnaires</description>
     <url>http://www.entando.com/</url>
     <parent>
@@ -95,8 +95,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
