@@ -54,14 +54,35 @@ databaseChangeLog:
                   name: multiple_choice
                   type: boolean
               - column:
-                  name: options
-                  type: blob
-              - column:
                   name: min_rate
                   type: int
               - column:
                   name: max_rate
                   type: int
+
+        - createTable:
+            tableName: question_list_options
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: key
+                  type: varchar(64)
+              - column:
+                  name: label
+                  type: varchar(255)
+              - column:
+                  name: question_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_question_list_options
+                    references: questions(id)
+                    onDelete: CASCADE
 
         - createTable:
             tableName: survey_submissions

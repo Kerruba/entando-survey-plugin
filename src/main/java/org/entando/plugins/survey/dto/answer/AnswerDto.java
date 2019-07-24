@@ -12,7 +12,7 @@ import org.entando.plugins.survey.model.answer.AnswerRate;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = AnswerRateDto.class, name = "rate"),
-        @JsonSubTypes.Type(value = AnswerListDto.class, name = "list"),
+        @JsonSubTypes.Type(value = AnswerListDto.class, name = "listSubmissions"),
         @JsonSubTypes.Type(value = AnswerTextDto.class, name = "text")
 })
 public abstract class AnswerDto {

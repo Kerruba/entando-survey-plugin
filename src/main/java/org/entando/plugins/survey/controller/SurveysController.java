@@ -36,17 +36,35 @@ public class SurveysController {
     @Secured(SURVEY_GET)
     @ApiOperation(notes = "Gets a survey", nickname = "getSurvey", value = "GET Survey")
     @GetMapping(path = "/{uuid}", produces = { APPLICATION_JSON_VALUE })
-    public SurveyDto getSurvey(@PathVariable final String uuid) {
+    public SurveyDto get(@PathVariable final String uuid) {
         log.info("Requesting survey with ID {}", uuid);
         return SurveyDto.fromModel(surveyService.get(uuid));
     }
 
     @Secured(SURVEY_CREATE)
-    @ApiOperation(notes = "Creates a survey", nickname = "getSurvey", value = "CREATE Survey")
-    @PostMapping(/*path = "/", */produces = { APPLICATION_JSON_VALUE })
-    public SurveyDto createSurvey(final @Valid @RequestBody CreateSurveyRequest request) {
+    @ApiOperation(notes = "Creates a survey", nickname = "createSurvey", value = "CREATE Survey")
+    @PostMapping(produces = { APPLICATION_JSON_VALUE })
+    public SurveyDto create(final @Valid @RequestBody CreateSurveyRequest request) {
         log.info("Creating survey");
         return SurveyDto.fromModel(surveyService.create(request));
+    }
+
+    @Secured(SURVEY_LIST)
+    @ApiOperation(notes = "Lists all surveys", nickname = "listSurveus", value = "LIST Survey")
+    @GetMapping(produces = { APPLICATION_JSON_VALUE })
+    public BasePage<SurveyDto> list(final BasePageable page) {
+        log.info("Listing surveys");
+        List<Survey> result = surveyService.list(page);
+        List<SurveyDto> dtos = new ArrayList<>();
+        for (Survey survey : result) {
+            dtos.add(SurveyDto.fromModel(survey));
+        }
+
+        return BasePage.<SurveyDto>builder()
+                .list(dtos)
+                .page(page.getPage())
+                .pageSize(page.getPageSize()) //TODO Possible bug on page count generation?
+                .build();
     }
 
     @Secured(SURVEY_SUBMISSION_LIST)
@@ -57,7 +75,7 @@ public class SurveysController {
         log.info("Lists survey submissions for survey ID {}", uuid);
 
 
-        List<SurveySubmission> result = surveyService.list(uuid, page);
+        List<SurveySubmission> result = surveyService.listSubmissions(uuid, page);
         List<SurveySubmissionDto> dtos = new ArrayList<>();
         for (SurveySubmission submission : result) {
             dtos.add(SurveySubmissionDto.fromModel(submission));
@@ -71,7 +89,7 @@ public class SurveysController {
     }
 
     @Secured(SURVEY_SUBMISSION_CREATE)
-    @ApiOperation(notes = "Submits a survey", nickname = "submitSurvey", value = "CREATE SurveySubmission")
+    @ApiOperation(notes = "Submits a survey", nickname = "createSurveySubmission", value = "CREATE SurveySubmission")
     @PostMapping(path = "/{uuid}/submissions", produces = { APPLICATION_JSON_VALUE })
     public SurveySubmissionDto submitSurvey(@PathVariable final String uuid, @Valid @RequestBody final SubmitSurveyRequest request) {
         log.info("Submitting survey with ID {}", uuid);
@@ -80,9 +98,9 @@ public class SurveysController {
     }
 
     @Secured(SURVEY_SUBMISSION_GET)
-    @ApiOperation(notes = "Gets a survey submission", nickname = "submitSurvey", value = "GET SurveySubmission")
+    @ApiOperation(notes = "Gets a survey submission", nickname = "getSurveySubmission", value = "GET SurveySubmission")
     @GetMapping(path = "/{uuid}/submissions/{submissionUuid}", produces = { APPLICATION_JSON_VALUE })
-    public SurveySubmissionDto listSurvey(@PathVariable final String uuid, @PathVariable final String submissionUuid) {
+    public SurveySubmissionDto getSubmission(@PathVariable final String uuid, @PathVariable final String submissionUuid) {
         log.info("Requesting survey submission with ID {} and survey ID {}", submissionUuid, uuid);
         new SurveySubmissionDto();
         return SurveySubmissionDto.fromModel(

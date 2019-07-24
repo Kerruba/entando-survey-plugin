@@ -21,7 +21,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@DiscriminatorValue("list")
+@DiscriminatorValue("listSubmissions")
 public class AnswerList extends Answer {
     @Lob
     @Column(name = "selected_keys")

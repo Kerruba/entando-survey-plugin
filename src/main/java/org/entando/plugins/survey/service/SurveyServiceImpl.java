@@ -47,6 +47,12 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
+    public List<Survey> list(BasePageable page) {
+        return surveyRepository.findAll(PageRequest.of(page.getPage(), page.getPageSize()))
+                .getContent();
+    }
+
+    @Override
     public SurveySubmission submit(String uuid, SubmitSurveyRequest request) {
         Survey survey = surveyRepository.findById(UUID.fromString(uuid))
                 .orElseThrow(SurveyNotFoundException::new);
@@ -82,7 +88,7 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public List<SurveySubmission> list(String uuid, BasePageable page) {
+    public List<SurveySubmission> listSubmissions(String uuid, BasePageable page) {
         return surveySubmissionRepository.findAll(PageRequest.of(page.getPage(), page.getPageSize()))
                 .getContent();
     }
