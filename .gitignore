@@ -14,3 +14,7 @@ buildNumber.properties
 #IDE specific files
 .idea/
 *.iml
+
+mydb/
+derby.log
+.project
