@@ -33,4 +33,9 @@ $ git clone git@github.com:entando/keycloak-commons.git
 
 $ cd web-commons && mvn install -Dmaven.test.skip=true && cd ..
 $ cd keycloak-commons && mvn install -Dmaven.test.skip=true && cd ..
+
+
+## Startup
+In Dev mode with h2 DB
+    mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
