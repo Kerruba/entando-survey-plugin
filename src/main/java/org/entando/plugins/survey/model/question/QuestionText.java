@@ -3,15 +3,21 @@ package org.entando.plugins.survey.model.question;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.entando.plugins.survey.dto.question.QuestionDto;
+import org.entando.plugins.survey.dto.question.QuestionListDto;
+import org.entando.plugins.survey.dto.question.QuestionTextDto;
 import org.entando.plugins.survey.model.Question;
+import org.entando.plugins.survey.model.Survey;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "question_text")
+@DiscriminatorValue("text")
 public class QuestionText extends Question {
     @Column(name = "min_length")
     protected int minLength;
@@ -20,10 +26,20 @@ public class QuestionText extends Question {
     protected int maxLength;
 
     @Builder
-    public QuestionText(UUID id, String question, int minLength, int maxLength) {
-        super(id, QuestionType.text, question);
+    public QuestionText(UUID id, String question, Survey survey, int minLength, int maxLength) {
+        super(id, QuestionType.text, question, survey);
 
         this.minLength = minLength;
         this.maxLength = maxLength;
+    }
+
+    @Override
+    public QuestionDto toDto() {
+        return QuestionTextDto.builder()
+                .id(id.toString())
+                .question(question)
+                .minLength(minLength)
+                .maxLength(maxLength)
+                .build();
     }
 }

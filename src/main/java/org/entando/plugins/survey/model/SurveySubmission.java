@@ -27,8 +27,8 @@ public class SurveySubmission {
     @Column(name = "submission_date")
     Date submissionDate;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "id")
-    @Singular List<AnswerQuestion> answers;
+    @OneToMany(mappedBy = "submission")
+    @Singular List<Answer> answers;
 
     //TODO user?
 }

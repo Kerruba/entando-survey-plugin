@@ -36,18 +36,13 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     nullable: false
-
-        - createTable:
-            tableName: question_text
-            columns:
               - column:
-                  name: id
+                  name: survey_id
                   type: uuid
                   constraints:
-                    primaryKey: true
                     nullable: false
-                    foreignKeyName: fk_question_text
-                    references: questions(id)
+                    foreignKeyName: fk_question_survey_id
+                    references: surveys(id)
                     onDelete: CASCADE
               - column:
                   name: min_length
@@ -55,38 +50,12 @@ databaseChangeLog:
               - column:
                   name: max_length
                   type: int
-
-        - createTable:
-            tableName: question_list
-            columns:
-              - column:
-                  name: id
-                  type: uuid
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-                    foreignKeyName: fk_question_list
-                    references: questions(id)
-                    onDelete: CASCADE
               - column:
                   name: multiple_choice
                   type: boolean
               - column:
                   name: options
                   type: blob
-
-        - createTable:
-            tableName: question_rate
-            columns:
-              - column:
-                  name: id
-                  type: uuid
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-                    foreignKeyName: fk_question_rate
-                    references: questions(id)
-                    onDelete: CASCADE
               - column:
                   name: min_rate
                   type: int
@@ -116,7 +85,7 @@ databaseChangeLog:
                     onDelete: CASCADE
 
         - createTable:
-            tableName: answer_question
+            tableName: answers
             columns:
               - column:
                   name: id
@@ -132,58 +101,32 @@ databaseChangeLog:
                     foreignKeyName: fk_question_answer_question
                     references: questions(id)
                     onDelete: CASCADE
-
-        - createTable:
-            tableName: answer_question_list
-            columns:
               - column:
-                  name: id
+                  name: submission_id
                   type: uuid
                   constraints:
-                    primaryKey: true
                     nullable: false
-                    foreignKeyName: fk_answer_question_list
-                    references: answer_question(id)
+                    foreignKeyName: fk_survey_submission_answer
+                    references: survey_submissions(id)
                     onDelete: CASCADE
+              - column:
+                  name: type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
               - column:
                   name: selected_keys
                   type: blob
-
-        - createTable:
-            tableName: answer_question_text
-            columns:
-              - column:
-                  name: id
-                  type: uuid
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-                    foreignKeyName: fk_answer_question_text
-                    references: answer_question(id)
-                    onDelete: CASCADE
               - column:
                   name: answer_text
                   type: blob
-
-        - createTable:
-            tableName: answer_question_rate
-            columns:
-              - column:
-                  name: id
-                  type: uuid
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-                    foreignKeyName: fk_answer_question_rate
-                    references: answer_question(id)
-                    onDelete: CASCADE
               - column:
                   name: selected_rate
                   type: int
+
         - sqlFile:
-            dbms: h2, postgresql, derby
+            dbms: h2, postgresql
             encoding: utf8
-            endDelimiter: \nGO
             path: db/changelog/seed_data.sql
             splitStatements: true
             stripComments: true
@@ -194,18 +137,6 @@ databaseChangeLog:
         - dropTable:
             tableName: questions
         - dropTable:
-            tableName: question_text
-        - dropTable:
-            tableName: question_rate
-        - dropTable:
-            tableName: question_list
-        - dropTable:
             tableName: survey_submissions
         - dropTable:
             tableName: answer_question
-        - dropTable:
-            tableName: answer_question_text
-        - dropTable:
-            tableName: answer_question_rate
-        - dropTable:
-            tableName: answer_question_list

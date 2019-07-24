@@ -1,9 +1,6 @@
 package org.entando.plugins.survey.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Singular;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +9,7 @@ import java.util.UUID;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Table(name = "surveys")
 public class Survey {
@@ -28,5 +26,6 @@ public class Survey {
 
     @Singular
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "survey_id")
     List<Question> questions;
 }

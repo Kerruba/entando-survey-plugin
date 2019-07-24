@@ -1,0 +1,21 @@
+package org.entando.plugins.survey.dto.question;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.AllArgsConstructor;
+import org.entando.plugins.survey.model.Question;
+
+@AllArgsConstructor
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = QuestionRateDto.class, name = "rate"),
+        @JsonSubTypes.Type(value = QuestionListDto.class, name = "list"),
+        @JsonSubTypes.Type(value = QuestionTextDto.class, name = "text")
+})
+public abstract class QuestionDto {
+    String id;
+    Question.QuestionType type;
+    String question;
+
+    public abstract Question toModel();
+}

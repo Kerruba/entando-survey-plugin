@@ -3,15 +3,21 @@ package org.entando.plugins.survey.model.question;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.entando.plugins.survey.dto.question.QuestionDto;
+import org.entando.plugins.survey.dto.question.QuestionListDto;
+import org.entando.plugins.survey.dto.question.QuestionRateDto;
 import org.entando.plugins.survey.model.Question;
+import org.entando.plugins.survey.model.Survey;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "question_rate")
+@DiscriminatorValue("rate")
 public class QuestionRate extends Question {
     @Column(name = "min_rate")
     protected int minRate;
@@ -20,10 +26,20 @@ public class QuestionRate extends Question {
     protected int maxRate;
 
     @Builder
-    public QuestionRate(UUID id, String question, int minRate, int maxRate) {
-        super(id, QuestionType.rate, question);
+    public QuestionRate(UUID id, String question, Survey survey, int minRate, int maxRate) {
+        super(id, QuestionType.rate, question, survey);
 
         this.minRate = minRate;
         this.maxRate = maxRate;
+    }
+
+    @Override
+    public QuestionDto toDto() {
+        return QuestionRateDto.builder()
+                .id(id.toString())
+                .question(question)
+                .minRate(minRate)
+                .maxRate(maxRate)
+                .build();
     }
 }

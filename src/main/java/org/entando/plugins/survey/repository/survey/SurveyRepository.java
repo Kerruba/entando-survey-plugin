@@ -1,4 +1,4 @@
-package org.entando.plugins.survey.repository;
+package org.entando.plugins.survey.repository.survey;
 
 import org.entando.plugins.survey.model.Survey;
 import org.springframework.data.repository.PagingAndSortingRepository;

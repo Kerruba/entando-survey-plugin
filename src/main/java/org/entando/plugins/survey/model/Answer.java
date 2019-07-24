@@ -1,12 +1,10 @@
 package org.entando.plugins.survey.model;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
-import org.entando.plugins.survey.dto.question.QuestionDto;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -16,34 +14,30 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "answers")
 @DiscriminatorColumn(
     discriminatorType = DiscriminatorType.STRING,
     name = "type",
     columnDefinition = "VARCHAR"
 )
-@Table(name = "questions")
-public abstract class Question {
+public abstract class Answer {
+
     @Id
     @Column(name = "id")
     protected UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", insertable = false, updatable = false)
-    protected QuestionType type;
-
-    @Column(name = "question")
-    protected String question;
+    protected Question.QuestionType type;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name="survey_id")
-    protected Survey survey;
+    @JoinColumn(name="question_id")
+    protected Question question;
 
-    public abstract QuestionDto toDto();
+    @ManyToOne(optional = false)
+    @JoinColumn(name="submission_id")
+    protected SurveySubmission submission;
 
-    public enum QuestionType {
-        list,
-        text,
-        rate;
-    }
+    public abstract AnswerDto toDto();
 
 }
