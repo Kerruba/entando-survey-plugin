@@ -244,7 +244,7 @@
                 <version>0.8.3</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/*EntandoAuthJavaApplication*.*</exclude>
+                        <exclude>**/*EntandoSurveyPluginJavaApplication*.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -273,7 +273,7 @@
                             <option>-c</option>
                             <arg>exec java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -cp
                                 /app/resources/:/app/classes/:/app/libs/*
-                                "org.entando.plugins.questionnaire.EntandoAuthJavaApplication"
+                                "org.entando.plugins.survey.EntandoSurveyPluginJavaApplication"
                                 "$@"</arg>
                         </entrypoint>
                         <ports>
