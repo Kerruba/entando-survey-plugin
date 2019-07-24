@@ -1,14 +1,11 @@
 package org.entando.plugins.survey.model;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class BasePage<T> {
 
     private List<T> list;
@@ -16,8 +13,12 @@ public class BasePage<T> {
     private long page;
     private long pages;
 
-    public static <R> BasePage<R> build(final long page, final long pageSize, final long count, final List<R> list) {
-        return new BasePage<>(list, count, page, (long) Math.ceil((double)count / (double)Math.max(1, pageSize)));
+    @Builder
+    public BasePage(final List<T> list, final long count, final long page, final long pageSize) {
+        this.list = list;
+        this.count = list.size();
+        this.page = page;
+        this.pages = (long) Math.ceil((double)count / (double)Math.max(1, pageSize));
     }
 
 }

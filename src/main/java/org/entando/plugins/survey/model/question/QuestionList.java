@@ -1,9 +1,10 @@
-package org.entando.plugins.survey.model;
+package org.entando.plugins.survey.model.question;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Singular;
+import org.entando.plugins.survey.model.Question;
 
 import javax.persistence.*;
 import java.util.List;

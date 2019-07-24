@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <name>Entando Survey Plugin</name>
-    <description>The plugin component to manage Entando Questionnaires</description>
+    <description>The plugin component to manage Entando Surveys</description>
     <url>http://www.entando.com/</url>
     <parent>
         <groupId>org.springframework.boot</groupId>

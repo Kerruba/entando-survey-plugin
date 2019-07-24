@@ -1,8 +1,9 @@
-package org.entando.plugins.survey.model;
+package org.entando.plugins.survey.model.question;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.entando.plugins.survey.model.Question;
 
 import javax.persistence.Column;
 import javax.persistence.Table;

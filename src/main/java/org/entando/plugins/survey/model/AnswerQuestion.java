@@ -1,31 +1,28 @@
 package org.entando.plugins.survey.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "questions")
-public abstract class Question {
+@Table(name = "answer_question")
+public abstract class AnswerQuestion {
     @Id
     @Column(name = "id")
     protected UUID id;
 
-    @Column(name = "type")
-    protected QuestionType type;
+    @ManyToOne(optional = false)
+    @JoinColumn(name="question_id")
+    protected Question question;
 
-    @Column(name = "question")
-    protected String question;
-
-    public enum QuestionType {
-        list,
-        text,
-        rate;
-    }
 
 }
