@@ -3,13 +3,17 @@ package org.entando.plugins.survey.dto.answer;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.entando.plugins.survey.dto.question.QuestionListOptionDto;
 import org.entando.plugins.survey.model.Answer;
 import org.entando.plugins.survey.model.Question;
 import org.entando.plugins.survey.model.answer.AnswerList;
+import org.entando.plugins.survey.model.answer.AnswerListOption;
 import org.entando.plugins.survey.model.question.QuestionList;
+import org.entando.plugins.survey.model.question.QuestionListOption;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -26,9 +30,13 @@ public class AnswerListDto extends AnswerDto {
 
     @Override
     public Answer toModel() {
-        return AnswerList.builder()
+        AnswerList model = AnswerList.builder()
                 .question(new QuestionList(UUID.fromString(questionId)))
-                .selectedKeys(selectedKeys)
                 .build();
+
+        model.setSelectedOptions(selectedKeys.stream().map(key -> AnswerListOption.builder().key(key).answer(model).build())
+                .collect(Collectors.toList()));
+
+        return model;
     }
 }

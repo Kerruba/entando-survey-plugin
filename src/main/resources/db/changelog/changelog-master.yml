@@ -148,6 +148,27 @@ databaseChangeLog:
                   name: selected_rate
                   type: int
 
+        - createTable:
+            tableName: answer_list_options
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: key
+                  type: varchar(64)
+              - column:
+                  name: answer_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_answer_list_options
+                    references: answers(id)
+                    onDelete: CASCADE
+
         - sqlFile:
             dbms: h2, postgresql
             encoding: utf8
