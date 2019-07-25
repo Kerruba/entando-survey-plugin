@@ -27,7 +27,7 @@ public class AnswerListDto extends AnswerDto {
     @Override
     public Answer toModel() {
         return AnswerList.builder()
-                .question(QuestionList.builder().id(UUID.fromString(questionId)).build())
+                .question(new QuestionList(UUID.fromString(questionId)))
                 .selectedKeys(selectedKeys)
                 .build();
     }

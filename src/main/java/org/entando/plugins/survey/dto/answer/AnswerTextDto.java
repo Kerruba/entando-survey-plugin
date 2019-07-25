@@ -25,7 +25,7 @@ public class AnswerTextDto extends AnswerDto {
     @Override
     public Answer toModel() {
         return AnswerText.builder()
-                .question(QuestionList.builder().id(UUID.fromString(questionId)).build())
+                .question(new QuestionList(UUID.fromString(questionId)))
                 .answerText(answerText)
                 .build();
     }

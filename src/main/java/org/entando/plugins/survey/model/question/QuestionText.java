@@ -27,9 +27,13 @@ public class QuestionText extends Question {
     @Column(name = "max_length")
     private int maxLength;
 
+    public QuestionText(final UUID id) {
+        super(id);
+    }
+
     @Builder
-    public QuestionText(UUID id, String question, int order, Survey survey, int minLength, int maxLength) {
-        super(id, QuestionType.text, question, order, survey);
+    public QuestionText(String question, int order, Survey survey, int minLength, int maxLength) {
+        super(QuestionType.text, question, order, survey);
 
         this.minLength = minLength;
         this.maxLength = maxLength;

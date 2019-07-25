@@ -27,9 +27,13 @@ public class QuestionRate extends Question {
     @Column(name = "max_rate")
     private int maxRate;
 
+    public QuestionRate(final UUID id) {
+        super(id);
+    }
+
     @Builder
-    public QuestionRate(UUID id, String question, int order, Survey survey, int minRate, int maxRate) {
-        super(id, QuestionType.rate, question, order, survey);
+    public QuestionRate(String question, int order, Survey survey, int minRate, int maxRate) {
+        super(QuestionType.rate, question, order, survey);
 
         this.minRate = minRate;
         this.maxRate = maxRate;

@@ -26,7 +26,7 @@ public class AnswerRateDto extends AnswerDto {
     @Override
     public Answer toModel() {
         return AnswerRate.builder()
-                .question(QuestionList.builder().id(UUID.fromString(questionId)).build())
+                .question(new QuestionList(UUID.fromString(questionId)))
                 .selectedRate(selectedRate)
                 .build();
     }

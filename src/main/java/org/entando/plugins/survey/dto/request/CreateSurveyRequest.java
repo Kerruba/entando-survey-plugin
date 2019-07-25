@@ -6,6 +6,9 @@ import org.entando.plugins.survey.dto.question.QuestionDto;
 import org.entando.plugins.survey.model.Question;
 import org.entando.plugins.survey.model.Survey;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,9 +17,14 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CreateSurveyRequest {
 
-    private String id;
+    @NotEmpty
     private String title;
+
+    @NotEmpty
     private String description;
+
+    @NotNull
+    @Size(min = 1)
     private List<QuestionDto> questions = new ArrayList<>();
 
     public Survey getModel() {

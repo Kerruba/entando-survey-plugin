@@ -40,9 +40,4 @@ public class Survey {
     @JoinColumn(name = "survey_id")
     private List<Question> questions;
 
-    @PrePersist
-    public void setUuid() {
-        this.id = UUID.randomUUID();
-    }
-
 }

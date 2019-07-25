@@ -35,10 +35,15 @@ public class QuestionList extends Question {
     @Column(name = "multiple_choice")
     private boolean multipleChoice;
 
-    @Builder
-    public QuestionList(UUID id, String question, int order, Survey survey, boolean multipleChoice, @Singular List<QuestionListOption> options) {
-        super(id, QuestionType.list, question, order, survey);
+    public QuestionList(final UUID id) {
+        super(id);
+    }
 
+    @Builder
+    public QuestionList(final UUID id, String question, int order, Survey survey, boolean multipleChoice, @Singular List<QuestionListOption> options) {
+        super(QuestionType.list, question, order, survey);
+
+        setId(id);
         this.multipleChoice = multipleChoice;
         this.options = options;
     }

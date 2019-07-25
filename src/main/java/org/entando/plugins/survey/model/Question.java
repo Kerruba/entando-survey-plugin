@@ -1,6 +1,5 @@
 package org.entando.plugins.survey.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.entando.plugins.survey.dto.question.QuestionDto;
@@ -22,7 +21,6 @@ import java.util.UUID;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
@@ -51,12 +49,26 @@ public abstract class Question {
     @JoinColumn(name="survey_id")
     private Survey survey;
 
-    public abstract QuestionDto toDto();
+    public Question(final UUID id) {
+        this.id = id;
+    }
+
+    public Question(final QuestionType type, final String question,
+                    final int order, final Survey survey) {
+        this.type = type;
+        this.question = question;
+        this.order = order;
+        this.survey = survey;
+    }
 
     @PrePersist
     public void setUuid() {
-        this.id = UUID.randomUUID();
+        if (this.id == null) {
+            this.id = UUID.randomUUID();
+        }
     }
+
+    public abstract QuestionDto toDto();
 
     public enum QuestionType {
         list,

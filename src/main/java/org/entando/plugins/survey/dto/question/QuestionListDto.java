@@ -30,6 +30,7 @@ public class QuestionListDto extends QuestionDto {
     public Question toModel() {
         UUID questionId = UUID.randomUUID();
         QuestionList.QuestionListBuilder builder = QuestionList.builder()
+                .id(questionId)
                 .order(order)
                 .question(question)
                 .multipleChoice(multipleChoice);
@@ -38,7 +39,7 @@ public class QuestionListDto extends QuestionDto {
             builder.option(QuestionListOption.builder()
                     .key(dto.getKey())
                     .label(dto.getLabel())
-                    .question(QuestionList.builder().id(questionId).build())
+                    .question(new QuestionList(questionId))
                     .build());
         }
 
