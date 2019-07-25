@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
 import org.entando.plugins.survey.model.Answer;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class SubmitSurveyRequest {
 
+    @Valid
     @NotNull
     @Size(min = 1)
     private List<AnswerDto> answers = new ArrayList<>();

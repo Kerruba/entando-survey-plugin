@@ -8,12 +8,14 @@ import org.entando.plugins.survey.model.Question;
 import org.entando.plugins.survey.model.answer.AnswerText;
 import org.entando.plugins.survey.model.question.QuestionList;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AnswerTextDto extends AnswerDto {
 
+    @NotEmpty
     private String answerText;
 
     @Builder
