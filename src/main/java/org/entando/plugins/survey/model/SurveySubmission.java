@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,6 +42,11 @@ public class SurveySubmission {
 
     @OneToMany(mappedBy = "submission")
     @Singular List<Answer> answers;
+
+    @PrePersist
+    public void setUuid() {
+        this.id = UUID.randomUUID();
+    }
 
     //TODO user?
 }

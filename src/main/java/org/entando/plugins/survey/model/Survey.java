@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.util.List;
 import java.util.UUID;
@@ -38,4 +39,10 @@ public class Survey {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "survey_id")
     private List<Question> questions;
+
+    @PrePersist
+    public void setUuid() {
+        this.id = UUID.randomUUID();
+    }
+
 }
