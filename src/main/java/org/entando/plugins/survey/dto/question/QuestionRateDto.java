@@ -6,8 +6,6 @@ import lombok.EqualsAndHashCode;
 import org.entando.plugins.survey.model.Question;
 import org.entando.plugins.survey.model.question.QuestionRate;
 
-import java.util.UUID;
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class QuestionRateDto extends QuestionDto {

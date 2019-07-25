@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.entando.plugins.survey.dto.question.QuestionDto;
-import org.entando.plugins.survey.dto.question.QuestionListDto;
 import org.entando.plugins.survey.dto.question.QuestionTextDto;
 import org.entando.plugins.survey.model.Question;
 import org.entando.plugins.survey.model.Survey;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.util.UUID;
 
 @Entity

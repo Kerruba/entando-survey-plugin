@@ -1,15 +1,14 @@
 package org.entando.plugins.survey.dto.survey;
 
-import lombok.*;
-import org.entando.plugins.survey.dto.answer.AnswerDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Singular;
 import org.entando.plugins.survey.dto.question.QuestionDto;
-import org.entando.plugins.survey.model.Answer;
 import org.entando.plugins.survey.model.Question;
 import org.entando.plugins.survey.model.Survey;
-import org.entando.plugins.survey.model.SurveySubmission;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 

@@ -1,13 +1,22 @@
 package org.entando.plugins.survey.model.question;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Singular;
 import org.entando.plugins.survey.dto.question.QuestionDto;
 import org.entando.plugins.survey.dto.question.QuestionListDto;
 import org.entando.plugins.survey.dto.question.QuestionListOptionDto;
 import org.entando.plugins.survey.model.Question;
 import org.entando.plugins.survey.model.Survey;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

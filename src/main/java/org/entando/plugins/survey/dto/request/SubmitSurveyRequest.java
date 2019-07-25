@@ -3,8 +3,8 @@ package org.entando.plugins.survey.dto.request;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.entando.plugins.survey.model.Answer;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
+import org.entando.plugins.survey.model.Answer;
 
 import java.util.ArrayList;
 import java.util.List;

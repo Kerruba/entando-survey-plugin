@@ -15,13 +15,23 @@ import org.entando.plugins.survey.model.Survey;
 import org.entando.plugins.survey.model.SurveySubmission;
 import org.entando.plugins.survey.service.SurveyService;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.entando.plugins.survey.controller.AuthPermissions.*;
+import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_CREATE;
+import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_GET;
+import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_LIST;
+import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_SUBMISSION_CREATE;
+import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_SUBMISSION_GET;
+import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_SUBMISSION_LIST;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j

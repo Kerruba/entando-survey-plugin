@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
-import org.entando.plugins.survey.dto.answer.AnswerListDto;
 import org.entando.plugins.survey.dto.answer.AnswerTextDto;
 import org.entando.plugins.survey.model.Answer;
 import org.entando.plugins.survey.model.Question;

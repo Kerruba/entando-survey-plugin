@@ -1,6 +1,10 @@
 package org.entando.plugins.survey.dto.submission;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Singular;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
 import org.entando.plugins.survey.model.Answer;
 import org.entando.plugins.survey.model.SurveySubmission;

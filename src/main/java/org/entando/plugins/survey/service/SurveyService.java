@@ -1,8 +1,10 @@
 package org.entando.plugins.survey.service;
 
 import org.entando.plugins.survey.dto.request.CreateSurveyRequest;
-import org.entando.plugins.survey.model.*;
 import org.entando.plugins.survey.dto.request.SubmitSurveyRequest;
+import org.entando.plugins.survey.model.BasePageable;
+import org.entando.plugins.survey.model.Survey;
+import org.entando.plugins.survey.model.SurveySubmission;
 
 import java.util.List;
 
