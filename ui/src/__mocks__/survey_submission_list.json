@@ -1,25 +1,145 @@
 {
   "payload": [
     {
-      "id": "2f8c59b1-9299-46f0-9c4a-90674752eeba",
-      "submittedAt": "2019-07-24T16:01:18Z",
-      "user": "admin"
+      "surveyId": "982fb709-6148-4fc8-890f-1058ade6e134",
+      "submissionId": "953f4ace-067e-43c5-a212-71ede1d6fbca",
+      "submissionDate": "2019-07-25T04:31:33Z",
+      "answers": [
+        {
+          "type": "rate",
+          "questionId": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
+          "selectedRate": 5
+        },
+        {
+          "type": "text",
+          "questionId": "3e7a1072-e20f-4362-8a27-b5aba6ac07a0",
+          "answerText": "This is an answer for that awesome question that I don't remember!"
+        },
+        {
+          "type": "list",
+          "questionId": "7aae5609-da9a-491b-bc5c-921ac2a2d7ab",
+          "selectedKeys": [
+            "javascript"
+          ]
+        }
+      ]
     },
     {
-      "id": "a3737579-a4da-4358-92ba-d83ffb31a82f",
-      "submittedAt": "2019-07-24T16:09:52Z",
-      "user": "user"
+      "surveyId": "982fb709-6148-4fc8-890f-1058ade6e134",
+      "submissionId": "9ecfcf5c-1111-49f9-b6dc-1d524cba81aa",
+      "submissionDate": "2019-07-25T06:18:02Z",
+      "answers": [
+        {
+          "type": "text",
+          "questionId": "3e7a1072-e20f-4362-8a27-b5aba6ac07a0",
+          "answerText": "dqdqwdqwdqwdqwdqwdqwdqw"
+        },
+        {
+          "type": "rate",
+          "questionId": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
+          "selectedRate": 6
+        },
+        {
+          "type": "list",
+          "questionId": "7aae5609-da9a-491b-bc5c-921ac2a2d7ab",
+          "selectedKeys": [
+            "javascript"
+          ]
+        }
+      ]
     },
     {
-      "id": "c6a6c6b4-a0aa-4077-ac78-1dbab07789c7",
-      "submittedAt": "2019-07-24T16:46:33Z",
-      "user": "someone"
+      "surveyId": "982fb709-6148-4fc8-890f-1058ade6e134",
+      "submissionId": "b735b282-d137-423e-b0fb-5b60da5bf47c",
+      "submissionDate": "2019-07-25T01:31:11Z",
+      "answers": [
+        {
+          "type": "rate",
+          "questionId": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
+          "selectedRate": 5
+        }
+      ]
+    },
+    {
+      "surveyId": "982fb709-6148-4fc8-890f-1058ade6e134",
+      "submissionId": "bd7c9ab3-f236-4b60-969e-629cf768ae06",
+      "submissionDate": "2019-07-25T06:00:26Z",
+      "answers": [
+        {
+          "type": "text",
+          "questionId": "3e7a1072-e20f-4362-8a27-b5aba6ac07a0",
+          "answerText": "asddsaadsdasadsadsadsads"
+        },
+        {
+          "type": "rate",
+          "questionId": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
+          "selectedRate": 2
+        },
+        {
+          "type": "list",
+          "questionId": "7aae5609-da9a-491b-bc5c-921ac2a2d7ab",
+          "selectedKeys": [
+            "javascript"
+          ]
+        }
+      ]
+    },
+    {
+      "surveyId": "982fb709-6148-4fc8-890f-1058ade6e134",
+      "submissionId": "e7a484a2-ddf9-42eb-9cf9-1f31fbac7fa7",
+      "submissionDate": "2019-07-25T06:16:27Z",
+      "answers": [
+        {
+          "type": "text",
+          "questionId": "3e7a1072-e20f-4362-8a27-b5aba6ac07a0",
+          "answerText": "2fh892f3h89f23h892f3h89"
+        },
+        {
+          "type": "rate",
+          "questionId": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
+          "selectedRate": 3
+        },
+        {
+          "type": "list",
+          "questionId": "7aae5609-da9a-491b-bc5c-921ac2a2d7ab",
+          "selectedKeys": [
+            "javascript"
+          ]
+        }
+      ]
+    },
+    {
+      "surveyId": "982fb709-6148-4fc8-890f-1058ade6e134",
+      "submissionId": "0a320625-221a-4dd4-b11f-739522a5d27f",
+      "submissionDate": "2019-07-25T04:31:28Z",
+      "answers": [
+        {
+          "type": "rate",
+          "questionId": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
+          "selectedRate": 5
+        },
+        {
+          "type": "text",
+          "questionId": "3e7a1072-e20f-4362-8a27-b5aba6ac07a0",
+          "answerText": "This is an answer for that awesome question that I don't remember!"
+        },
+        {
+          "type": "list",
+          "questionId": "7aae5609-da9a-491b-bc5c-921ac2a2d7ab",
+          "selectedKeys": []
+        }
+      ]
     }
   ],
   "metadata": {
     "page": 1,
-    "pageSize": 10,
-    "totalItems": 100
+    "pageSize": 100,
+    "lastPage": 1,
+    "totalItems": 6,
+    "sort": "id",
+    "direction": "ASC",
+    "filters": [],
+    "additionalParams": {}
   },
   "errors": []
 }
