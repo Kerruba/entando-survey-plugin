@@ -6,7 +6,7 @@ import './Question.css';
 
 export default class QuestionList extends Component {
 
-  state = { value: null, values: [] };
+  state = { values: [] };
 
   onChange = e => {
     const { multipleChoice } = this.props;
@@ -36,7 +36,7 @@ export default class QuestionList extends Component {
     if (multipleChoice) {
       onValueChange(value, value.length > 0);
     } else {
-      onValueChange(value, !!value);
+      onValueChange([value], !!value);
     }
   }
 

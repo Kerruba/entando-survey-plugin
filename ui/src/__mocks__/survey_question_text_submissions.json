@@ -1,0 +1,46 @@
+{
+  "payload": [
+    {
+      "id": "2f8c59b1-9299-46f0-9c4a-90674752eeba",
+      "submittedAt": "2019-07-24T16:01:18Z",
+      "user": "admin",
+      "answer": "Praesent nec congue velit. Donec nec tempus metus, sit amet congue sem. Etiam efficitur posuere nisl, ac tempus orci vulputate."
+    },
+    {
+      "id": "a3737579-a4da-4358-92ba-d83ffb31a82f",
+      "submittedAt": "2019-07-24T16:09:52Z",
+      "user": "user",
+      "answer": "Donec dictum, lacus a condimentum ultricies, felis turpis malesuada ex, quis malesuada quam turpis vitae ante. In tristique magna ipsum."
+    },
+    {
+      "id": "c6a6c6b4-a0aa-4077-ac78-1dbab07789c7",
+      "submittedAt": "2019-07-24T16:46:33Z",
+      "user": "someone",
+      "answer": "Etiam in sem luctus, commodo ante vitae, aliquam lacus. Donec vel eleifend purus, at auctor tellus. Morbi non ex eu."
+    },
+    {
+      "id": "69a17191-ace8-4b93-987e-002fcca7ca5b",
+      "submittedAt": "2019-07-24T16:01:18Z",
+      "user": "joe",
+      "answer": "Curabitur non risus magna. Ut quis justo porttitor, semper tellus sit amet, eleifend odio. In et nisl ut leo luctus."
+    },
+    {
+      "id": "1efb01fc-d0de-4619-97f5-7861945dbd73",
+      "submittedAt": "2019-07-24T16:09:52Z",
+      "user": "sergio",
+      "answer": "Integer euismod ante ipsum, sed fringilla lorem tempor luctus. Quisque ornare rhoncus ipsum at pellentesque. Maecenas tincidunt semper tortor, non."
+    },
+    {
+      "id": "b6e7a779-ad72-4074-a83c-4acf65e1bbbc",
+      "submittedAt": "2019-07-24T16:46:33Z",
+      "user": "filipe",
+      "answer": "Donec faucibus lacus at est ornare, quis tincidunt velit elementum. Maecenas rutrum consectetur ante in maximus. Interdum et malesuada fames."
+    }
+  ],
+  "metadata": {
+    "page": 1,
+    "pageSize": 10,
+    "totalItems": 100
+  },
+  "errors": []
+}

@@ -1,0 +1,8 @@
+.questionDetail {
+    margin-bottom: 20px;
+}
+
+.answerText {
+    height: 100px;
+    overflow: hidden;
+}

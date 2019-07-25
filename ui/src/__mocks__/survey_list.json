@@ -1,0 +1,17 @@
+{
+  "payload": [
+    {
+      "id": "982fb709-6148-4fc8-890f-1058ade6e134",
+      "title": "INAIL POC",
+      "description": "Sample Survey for INAIL POC",
+      "createdAt": "2019-07-24T16:31:03Z",
+      "submissions": 17862
+    }
+  ],
+  "metadata": {
+    "page": 1,
+    "pageSize": 10,
+    "totalItems": 100
+  },
+  "errors": []
+}

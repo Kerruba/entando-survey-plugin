@@ -1,0 +1,25 @@
+{
+  "payload": [
+    {
+      "id": "2f8c59b1-9299-46f0-9c4a-90674752eeba",
+      "submittedAt": "2019-07-24T16:01:18Z",
+      "user": "admin"
+    },
+    {
+      "id": "a3737579-a4da-4358-92ba-d83ffb31a82f",
+      "submittedAt": "2019-07-24T16:09:52Z",
+      "user": "user"
+    },
+    {
+      "id": "c6a6c6b4-a0aa-4077-ac78-1dbab07789c7",
+      "submittedAt": "2019-07-24T16:46:33Z",
+      "user": "someone"
+    }
+  ],
+  "metadata": {
+    "page": 1,
+    "pageSize": 10,
+    "totalItems": 100
+  },
+  "errors": []
+}

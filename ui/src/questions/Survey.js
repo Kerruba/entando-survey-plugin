@@ -29,27 +29,46 @@ export default class Survey extends Component {
   processProps(props) {
     const answers = {};
     if (props.questions !== undefined) {
-      props.questions.forEach(question => {
-        answers[question.key] = { valid: false };
+      props.questions.forEach(({ id, type }) => {
+        answers[id] = { valid: false, questionId: id, type };
       });
       this.setState({ answers });
     }
   }
 
   submit = () => {
+    const { onSubmit } = this.props;
+    const { answers } = this.state;
+    const request = Object.keys(answers).map(questionId => {
+      const { type, value } = answers[questionId];
+      const result = { questionId, type };
 
+      // in the future we will evolve to more than one property
+      // when we have more types, it will make more sense
+      // to create a better archicecture to scale
+      if (type === 'rate') {
+        result['selectedRate'] = value;
+      } else if (type === 'text') {
+        result['answerText'] = value
+      } else if (type === 'list') {
+        result['selectedKeys'] = value
+      }
+
+      return result;
+    });
+    onSubmit(request);
   };
 
-  onValueChange = question => {
+  onValueChange = ({ id, type }) => {
     return (value, valid) => {
       const stateAnswers = this.state.answers;
-      const stateAnswer = stateAnswers[question.key];
-      const answer = stateAnswer ? { ...stateAnswer } : { key: question.key };
+      const stateAnswer = stateAnswers[id];
+      const answer = stateAnswer ? { ...stateAnswer } : { questionId: id, type };
 
       answer.valid = valid;
       if (valid) answer.value = value;
 
-      const answers = { ...stateAnswers, [question.key]: answer };
+      const answers = { ...stateAnswers, [id]: answer };
       this.setAnswers(answers);
     };
   };
@@ -86,6 +105,8 @@ export default class Survey extends Component {
 }
 
 Survey.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+
   questions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
@@ -108,4 +129,5 @@ Survey.propTypes = {
 
 Survey.defaultProps = {
   questions: [],
+  onSubmit: () => {}
 };

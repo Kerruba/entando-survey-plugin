@@ -3,6 +3,9 @@
     "id": "982fb709-6148-4fc8-890f-1058ade6e134",
     "title": "INAIL POC",
     "description": "Sample Survey for INAIL POC",
+    "createdAt": "2019-07-24T16:31:03Z",
+    "submissions": 17862,
+
     "questions": [
       {
         "id": "7aae5609-da9a-491b-bc5c-921ac2a2d7ab",
@@ -11,18 +14,29 @@
         "options": [
           {
             "key": "javascript",
-            "label": "Javascript"
+            "label": "Javascript",
+            "submissions": 9987
           },
           {
             "key": "golang",
-            "label": "Go"
+            "label": "Go",
+            "submissions": 1697
           },
           {
             "key": "java",
-            "label": "Java"
+            "label": "Java",
+            "submissions": 6178
           }
         ],
         "multipleChoice": false
+      },
+      {
+        "id": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
+        "type": "rate",
+        "question": "From 0 to 10, what is your level of expertise with this programming language",
+        "minRate": 0,
+        "maxRate": 10,
+        "average": 8.86
       },
       {
         "id": "3e7a1072-e20f-4362-8a27-b5aba6ac07a0",
@@ -30,13 +44,6 @@
         "question": "Describe your experience with this programming language",
         "minLength": 10,
         "maxLength": 200
-      },
-      {
-        "id": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
-        "type": "rate",
-        "question": "From 0 to 10, what is your level of expertise with this programming language",
-        "minRate": 0,
-        "maxRate": 10
       }
     ]
   }

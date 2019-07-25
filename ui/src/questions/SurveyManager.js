@@ -1,48 +1,76 @@
 import React, { Component } from 'react';
 import Survey from './Survey';
+import Loader from '../common/Loader';
 import PropTypes from 'prop-types';
-import * as surveyApi from '../api/SurveyApi';
-
-const Loader = () => <div>Carregando...</div>;
+import Result from 'antd/es/result';
+import Button from 'antd/es/button';
+import Spin from 'antd/es/spin';
+import { fetchSurvey, submitSurvey } from '../api/SurveyApi';
 
 export default class SurveyManager extends Component {
   state = {
+    loaded: false,
     loading: false,
+    submitting: false,
     questions: []
   };
 
-  componentWillMount() {
-    const { serviceUrl } = this.props;
-    surveyApi.setServiceUrl(serviceUrl);
-  }
-
   componentDidMount() {
-    this.fetchSurvey();
+    this.fetchData();
   }
 
-  async fetchSurvey() {
+  async fetchData() {
     const { surveyId } = this.props;
     this.setState({ loading: true });
-    surveyApi.fetchSurvey(surveyId).then((survey) => {
-      this.setState({ ...survey });
-    }).catch(err => {
-      console.log(err);
-    }).then(() => this.setState({ loading: false }));
+    fetchSurvey(surveyId)
+      .then(({ payload }) => this.setState({ ...payload, loaded: true }))
+      .catch(() => { this.setState({ error: 'Something bad happened' })})
+      .then(() => this.setState({ loading: false }));
   }
 
+  onSubmit = request => {
+    const { surveyId } = this.props;
+    this.setState({ submitting: true });
+    submitSurvey(surveyId, request)
+      .then(() => this.setState({ success: true }))
+      .catch(() => this.setState({ error: 'Something bad happened' }))
+      .then(() => this.setState({ submitting: false }))
+  };
+
+  clearError = () => {
+    this.setState({ error: null });
+    if (!this.state.loaded) {
+      this.fetchData();
+    }
+  };
+
   render() {
-    return this.state.loading
-      ? <Loader />
-      : <Survey questions={this.state.questions} />;
+    if (this.state.success) {
+      return <Result status="success"
+                     title="The survey has been submitted successfully"
+                     subTitle="We really appreciate your contribution" />
+    }
+    if (this.state.error) {
+      return <Result status="error"
+                     title={this.state.error}
+                     subTitle="Please try again"
+                     extra={[<Button onClick={this.clearError}>Back</Button>]} />
+    }
+    if (this.state.loading) {
+      return <Loader />;
+    }
+
+    const survey = <Survey questions={this.state.questions} onSubmit={this.onSubmit} />;
+    return this.state.submitting
+      ? <Spin tip="Submitting Survey">{survey}</Spin>
+      : survey;
   }
 }
 
 SurveyManager.propTypes = {
-  serviceUrl: PropTypes.string.isRequired,
   surveyId: PropTypes.string.isRequired,
 };
 
 SurveyManager.defaultProps = {
-  serviceUrl: '',
   surveyId: ''
 };
