@@ -16,16 +16,16 @@ public class Survey {
 
     @Id
     @Column(name = "id")
-    UUID id;
+    private UUID id;
 
     @Column(name = "title")
-    String title;
+    private String title;
 
     @Column(name = "description")
-    String description;
+    private String description;
 
     @Singular
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "survey_id")
-    List<Question> questions;
+    private List<Question> questions;
 }

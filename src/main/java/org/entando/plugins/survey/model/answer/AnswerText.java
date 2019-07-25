@@ -23,9 +23,10 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue("text")
 public class AnswerText extends Answer {
+
     @Lob
     @Column(name = "answer_text")
-    String answerText;
+    private String answerText;
 
     @Builder
     public AnswerText(UUID id, Question question, SurveySubmission submission, String answerText) {
@@ -37,7 +38,7 @@ public class AnswerText extends Answer {
     @Override
     public AnswerDto toDto() {
         return AnswerTextDto.builder()
-                .questionId(question.getId().toString())
+                .questionId(getQuestion().getId().toString())
                 .answerText(answerText)
                 .build();
     }

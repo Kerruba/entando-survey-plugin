@@ -10,6 +10,7 @@ import org.entando.plugins.survey.model.Survey;
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -20,10 +21,10 @@ public class QuestionList extends Question {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "question_id")
-    protected List<QuestionListOption> options;
+    private List<QuestionListOption> options;
 
     @Column(name = "multiple_choice")
-    protected boolean multipleChoice;
+    private boolean multipleChoice;
 
     @Builder
     public QuestionList(UUID id, String question, int order, Survey survey, boolean multipleChoice, @Singular List<QuestionListOption> options) {
@@ -35,16 +36,12 @@ public class QuestionList extends Question {
 
     @Override
     public QuestionDto toDto() {
-        QuestionListDto.QuestionListDtoBuilder builder = QuestionListDto.builder()
-                .id(id.toString())
-                .order(order)
-                .question(question)
-                .multipleChoice(multipleChoice);
-
-        for (QuestionListOption option : options) {
-            builder.option(new QuestionListOptionDto(option.key, option.label));
-        }
-
-        return builder.build();
+        return QuestionListDto.builder()
+                .id(getId().toString())
+                .order(getOrder())
+                .question(getQuestion())
+                .multipleChoice(multipleChoice)
+                .options(options.stream().map(QuestionListOptionDto::new).collect(Collectors.toList()))
+                .build();
     }
 }

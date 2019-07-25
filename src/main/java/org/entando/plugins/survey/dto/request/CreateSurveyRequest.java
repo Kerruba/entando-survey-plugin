@@ -13,10 +13,11 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class CreateSurveyRequest {
-    String id;
-    String title;
-    String description;
-    List<QuestionDto> questions = new ArrayList<>();
+
+    private String id;
+    private String title;
+    private String description;
+    private List<QuestionDto> questions = new ArrayList<>();
 
     public Survey getModel() {
         UUID surveyId = UUID.randomUUID();

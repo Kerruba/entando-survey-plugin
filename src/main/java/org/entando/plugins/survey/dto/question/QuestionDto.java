@@ -15,10 +15,10 @@ import org.entando.plugins.survey.model.Question;
         @JsonSubTypes.Type(value = QuestionTextDto.class, name = "text")
 })
 public abstract class QuestionDto {
-    String id;
-    //Question.QuestionType type;
-    String question;
-    int order;
+
+    protected String id;
+    protected String question;
+    protected int order;
 
     public abstract Question toModel();
 }

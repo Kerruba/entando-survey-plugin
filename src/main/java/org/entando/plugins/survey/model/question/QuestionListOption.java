@@ -20,16 +20,21 @@ public class QuestionListOption {
 
     @Id
     @Column(name = "id")
-    protected UUID id;
+    private UUID id;
 
     @Column(name = "key")
-    protected String key;
+    private String key;
 
     @Column(name = "label")
-    protected String label;
+    private String label;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="question_id")
-    protected Question question;
+    private Question question;
+
+    @PrePersist
+    public void setUuid() {
+        this.id = UUID.randomUUID();
+    }
 
 }

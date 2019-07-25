@@ -24,20 +24,25 @@ public abstract class Answer {
 
     @Id
     @Column(name = "id")
-    protected UUID id;
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", insertable = false, updatable = false)
-    protected Question.QuestionType type;
+    private Question.QuestionType type;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="question_id")
-    protected Question question;
+    private Question question;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="submission_id")
-    protected SurveySubmission submission;
+    private SurveySubmission submission;
 
     public abstract AnswerDto toDto();
+
+    @PrePersist
+    public void setUuid() {
+        this.id = UUID.randomUUID();
+    }
 
 }

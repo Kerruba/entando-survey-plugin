@@ -8,20 +8,17 @@ import org.entando.plugins.survey.dto.answer.AnswerDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class SubmitSurveyRequest {
 
-    List<AnswerDto> answers = new ArrayList<>();
+    private List<AnswerDto> answers = new ArrayList<>();
 
     public List<Answer> getModel() {
-        List<Answer> model = new ArrayList<>();
-        for(AnswerDto dto : answers) {
-            model.add(dto.toModel());
-        }
-        return model;
+        return answers.stream().map(AnswerDto::toModel).collect(Collectors.toList());
     }
 
 }

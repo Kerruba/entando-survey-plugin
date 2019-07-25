@@ -23,9 +23,10 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue("listSubmissions")
 public class AnswerList extends Answer {
+
     @Lob
     @Column(name = "selected_keys")
-    protected List<String> selectedKeys;
+    private List<String> selectedKeys;
 
     @Builder
     public AnswerList(UUID id, Question question, SurveySubmission submission, List<String> selectedKeys) {
@@ -37,8 +38,8 @@ public class AnswerList extends Answer {
     @Override
     public AnswerDto toDto() {
         return AnswerListDto.builder()
-                .questionId(question.getId().toString())
-                .selectedOptionsKeys(selectedKeys)
+                .questionId(getQuestion().getId().toString())
+                .selectedKeys(selectedKeys)
                 .build();
     }
 }

@@ -21,8 +21,9 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue("rate")
 public class AnswerRate extends Answer {
+
     @Column(name = "selected_rate")
-    int selectedRate;
+    private int selectedRate;
 
     @Builder
     public AnswerRate(UUID id, Question question, SurveySubmission submission, int selectedRate) {
@@ -34,7 +35,7 @@ public class AnswerRate extends Answer {
     @Override
     public AnswerDto toDto() {
         return AnswerRateDto.builder()
-                .questionId(question.getId().toString())
+                .questionId(getQuestion().getId().toString())
                 .selectedRate(selectedRate)
                 .build();
     }

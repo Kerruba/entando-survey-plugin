@@ -17,15 +17,15 @@ public class SurveySubmission {
 
     @Id
     @Column(name = "id")
-    UUID id;
+    private UUID id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="survey_id")
-    Survey survey;
+    private Survey survey;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "submission_date")
-    Date submissionDate;
+    private Date submissionDate;
 
     @OneToMany(mappedBy = "submission")
     @Singular List<Answer> answers;

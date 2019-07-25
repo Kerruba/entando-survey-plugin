@@ -19,11 +19,12 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue("rate")
 public class QuestionRate extends Question {
+
     @Column(name = "min_rate")
-    protected int minRate;
+    private int minRate;
 
     @Column(name = "max_rate")
-    protected int maxRate;
+    private int maxRate;
 
     @Builder
     public QuestionRate(UUID id, String question, int order, Survey survey, int minRate, int maxRate) {
@@ -36,9 +37,9 @@ public class QuestionRate extends Question {
     @Override
     public QuestionDto toDto() {
         return QuestionRateDto.builder()
-                .id(id.toString())
-                .order(order)
-                .question(question)
+                .id(getId().toString())
+                .order(getOrder())
+                .question(getQuestion())
                 .minRate(minRate)
                 .maxRate(maxRate)
                 .build();

@@ -19,11 +19,12 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue("text")
 public class QuestionText extends Question {
+
     @Column(name = "min_length")
-    protected int minLength;
+    private int minLength;
 
     @Column(name = "max_length")
-    protected int maxLength;
+    private int maxLength;
 
     @Builder
     public QuestionText(UUID id, String question, int order, Survey survey, int minLength, int maxLength) {
@@ -36,9 +37,9 @@ public class QuestionText extends Question {
     @Override
     public QuestionDto toDto() {
         return QuestionTextDto.builder()
-                .id(id.toString())
-                .order(order)
-                .question(question)
+                .id(getId().toString())
+                .order(getOrder())
+                .question(getQuestion())
                 .minLength(minLength)
                 .maxLength(maxLength)
                 .build();

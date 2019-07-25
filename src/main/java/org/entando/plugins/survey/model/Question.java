@@ -23,30 +23,36 @@ import java.util.UUID;
 )
 @Table(name = "questions")
 public abstract class Question {
+
     @Id
     @Column(name = "id")
-    protected UUID id;
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", insertable = false, updatable = false)
-    protected QuestionType type;
+    private QuestionType type;
 
     @Column(name = "question")
-    protected String question;
+    private String question;
 
     @Column(name = "norder")
-    protected int order;
+    private int order;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="survey_id")
-    protected Survey survey;
+    private Survey survey;
 
     public abstract QuestionDto toDto();
+
+    @PrePersist
+    public void setUuid() {
+        this.id = UUID.randomUUID();
+    }
 
     public enum QuestionType {
         list,
         text,
-        rate;
+        rate
     }
 
 }
