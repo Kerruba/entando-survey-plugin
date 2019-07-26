@@ -1,5 +1,4 @@
 import axios from 'axios';
-import FileDownload from 'js-file-download';
 
 const USE_MOCKS = process.env.USE_MOCKS;
 const config = { serviceUrl: '/entando-survey' };
@@ -44,8 +43,16 @@ export const adminDownloadSurveySubmissionsPDF = async (surveyId, submissionIds)
   if (USE_MOCKS) {
     return;
   }
-  const { data } = await axios.get(`${config.serviceUrl}/surveys/${surveyId}/submissions/export`);
-  FileDownload(data, 'surveys.pdf');
+
+  const downloadLink = document.createElement('a');
+  downloadLink.href = `${config.serviceUrl}/surveys/${surveyId}/submissions/export?submissionIds=${submissionIds.join(',')}`;
+  downloadLink.download = 'survey_export.pdf';
+  downloadLink.click();
+
+  console.log('Downloading PDF', downloadLink.href);
+
+  // to avoid double clicks
+  return new Promise(resolve => setTimeout(resolve, 500));
 };
 
 export const adminGetSurveyDetail = async (surveyId) => {

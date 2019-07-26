@@ -48,16 +48,14 @@ export default class SurveySubmissionList extends Component {
   }
 
   onSelectChange = selectedRowKeys => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
   };
 
   exportPdf = async () => {
     const { surveyId } = this.props;
-    console.log(this.state.selectedRowKeys);
     try {
       this.setState({ exporting: true });
-      await adminDownloadSurveySubmissionsPDF(surveyId);
+      await adminDownloadSurveySubmissionsPDF(surveyId, this.state.selectedRowKeys);
     } finally {
       this.setState({ exporting: false });
     }
