@@ -89,9 +89,18 @@ public class SurveyService {
     }
 
     public PagedMetadata<SurveySubmission> listSubmissions(String uuidString, PagedListRequest request) {
+        return listSubmissions(uuidString, request, null);
+    }
+
+    public PagedMetadata<SurveySubmission> listSubmissions(String uuidString, PagedListRequest request, List<UUID> submissionIds) {
         final UUID uuid = UUID.fromString(uuidString);
         final Pageable pageable = PagedListRequestDataUtils.toPageable(request);
-        final Specification<SurveySubmission> specification = (root, cq, cb) -> cb.equal(root.join("survey").get("id"), uuid);
+
+        Specification<SurveySubmission> specification = (root, cq, cb) -> cb.equal(root.join("survey").get("id"), uuid);
+        if (submissionIds != null && !submissionIds.isEmpty()) {
+            specification = specification.and((root, cq, cb) -> root.get("id").in(submissionIds));
+        }
+
         final Page<SurveySubmission> page = surveySubmissionRepository.findAll(specification, pageable);
         return new PagedMetadata<>(request, page.getContent(), (int) page.getTotalElements());
     }

@@ -18,21 +18,26 @@ import org.entando.plugins.survey.model.Question;
 import org.entando.plugins.survey.model.Survey;
 import org.entando.plugins.survey.model.SurveySubmission;
 import org.entando.plugins.survey.model.answer.AnswerList;
+import org.entando.plugins.survey.model.answer.AnswerListOption;
 import org.entando.plugins.survey.model.answer.AnswerRate;
 import org.entando.plugins.survey.model.answer.AnswerText;
+import org.entando.plugins.survey.model.question.QuestionList;
+import org.entando.plugins.survey.model.question.QuestionListOption;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequestScope
 public class SurveySubmissionPdfExportService {
 
     private final static float WIDTH = 595.27563f;
@@ -41,32 +46,16 @@ public class SurveySubmissionPdfExportService {
     private static PDFont font_medium = null;
     private static PDFont font_light = null;
 
-    public byte[] createPdf(final List<SurveySubmission> submissions) throws IOException {
-        final PDDocument document = new PDDocument();
+    public void createPdf(final List<SurveySubmission> submissions, final OutputStream outputStream) throws IOException {
+        try (final PDDocument document = new PDDocument()) {
+            loadFonts(document);
+            setAccessCredentials(document);
 
-        loadFonts(document);
-        setAccessCredentials(document);
-
-        for (SurveySubmission submission : submissions) {
-            processSubmission(document, submission);
+            for (SurveySubmission submission : submissions) {
+                processSubmission(document, submission);
+            }
+            document.save(outputStream);
         }
-
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        document.save(out);
-        return out.toByteArray();
-    }
-
-    public byte[] createPdf(final SurveySubmission submission) throws IOException {
-        final PDDocument document = new PDDocument();
-
-        loadFonts(document);
-        setAccessCredentials(document);
-
-        processSubmission(document, submission);
-
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        document.save(out);
-        return out.toByteArray();
     }
 
     private void loadFonts(PDDocument document) throws IOException {
@@ -86,7 +75,6 @@ public class SurveySubmissionPdfExportService {
     }
 
     private static void createHeaderTitle(final PDPageContentStream contentStream, final PDDocument document, Survey survey) throws IOException {
-
         contentStream.setFont(font_medium, 18);
         contentStream.beginText();
         contentStream.newLineAtOffset(200, HEIGHT - 35);
@@ -122,24 +110,18 @@ public class SurveySubmissionPdfExportService {
 
         document.addPage(page);
 
-
         Survey survey = submission.getSurvey();
         createHeaderTitle(contentStream, document, survey);
 
         final float margin = 40;
         final float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
         final float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
-        final BaseTable table = new BaseTable(HEIGHT-100, 0, 20, tableWidth, margin, document, page, false, true);
+        final BaseTable table = new BaseTable(HEIGHT-100, yStartNewPage, 20, tableWidth, margin, document, page, false, true);
 
         for (Question question : survey.getQuestions()){
-            Answer questionAnswer = null;
-            for (Answer answer : submission.getAnswers()) {
-                if (answer.getQuestion().getId().equals(question.getId())) {
-                    questionAnswer = answer;
-                    break;
-                }
-            }
-
+            final Answer questionAnswer = submission.getAnswers().stream()
+                    .filter(answer -> answer.getQuestion().getId().equals(question.getId()))
+                    .findFirst().orElse(null);
             createQuestionTable(document, page, table, question, questionAnswer);
         }
 
@@ -147,7 +129,14 @@ public class SurveySubmissionPdfExportService {
         contentStream.close();
     }
 
-    private static void createQuestionTable(final PDDocument document, final PDPage page, final BaseTable table, final Question question, Answer answer) throws IOException {
+    private static String getLabel(final Question question, final String key) {
+        return ((QuestionList)question).getOptions().stream()
+                .filter(option -> option.getKey().equals(key))
+                .map(QuestionListOption::getLabel)
+                .findFirst().orElse("");
+    }
+
+    private static void createQuestionTable(final PDDocument document, final PDPage page, final BaseTable table, final Question question, Answer answer) {
         final Row<PDPage> questionRow = table.createRow(5f);
         Cell<PDPage> questionCell = questionRow.createCell(100, String.format("%s)  %s", question.getOrder(), question.getQuestion()));
         questionCell.setFont(font_regular);
@@ -166,14 +155,16 @@ public class SurveySubmissionPdfExportService {
                     answerText = String.valueOf(((AnswerRate)answer).getSelectedRate());
                     break;
                 case list:
-                    answerText = ((AnswerList)answer).getSelectedOptions().stream().map(option -> option.getKey() + ", ").collect(Collectors.joining());
-                    answerText = answerText.substring(0, answerText.length()-2); //trim final separator
+                    answerText = ((AnswerList)answer).getSelectedOptions().stream()
+                            .map(AnswerListOption::getKey)
+                            .map(key -> getLabel(question, key))
+                            .collect(Collectors.joining(", "));
                     break;
             }
 
 
-            final Row<PDPage> answerRow = table.createRow(answer.getType().equals("text") ? 30f : 5f);
-            Cell<PDPage> answerCell = answerRow.createCell(100, answerText);
+            final Row<PDPage> answerRow = table.createRow(answer.getType().equals(Question.QuestionType.text) ? 30f : 5f);
+            final Cell<PDPage> answerCell = answerRow.createCell(100, answerText);
             questionCell.setFont(font_medium);
             answerCell.setFontSize(10);
             answerCell.setBottomPadding(10);
