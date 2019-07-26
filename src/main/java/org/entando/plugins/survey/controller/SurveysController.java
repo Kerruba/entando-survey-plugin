@@ -109,7 +109,7 @@ public class SurveysController {
             MediaType mediaType = MediaType.parseMediaType("application/pdf");
             respHeaders.setContentType(mediaType);
             respHeaders.setContentLength(exported.length);
-            respHeaders.setContentDispositionFormData("attachment", "survey_submissions"); //TODO better name?
+            respHeaders.setContentDispositionFormData("attachment", "survey_submissions.pdf"); //TODO better name?
             InputStreamResource isr = new InputStreamResource(new ByteArrayInputStream(exported));
             return new ResponseEntity<>(isr, respHeaders, HttpStatus.OK);
         }
@@ -132,7 +132,7 @@ public class SurveysController {
             MediaType mediaType = MediaType.parseMediaType("application/pdf");
             respHeaders.setContentType(mediaType);
             respHeaders.setContentLength(exported.length);
-            respHeaders.setContentDispositionFormData("attachment", "survey_submissions"); //TODO better name?
+            respHeaders.setContentDispositionFormData("attachment", "survey_submissions.pdf"); //TODO better name?
             InputStreamResource isr = new InputStreamResource(new ByteArrayInputStream(exported));
             return new ResponseEntity<>(isr, respHeaders, HttpStatus.OK);
         }
