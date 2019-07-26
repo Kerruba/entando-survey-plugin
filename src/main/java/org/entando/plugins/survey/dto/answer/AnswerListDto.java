@@ -34,7 +34,8 @@ public class AnswerListDto extends AnswerDto {
                 .question(new QuestionList(UUID.fromString(questionId)))
                 .build();
 
-        model.setSelectedOptions(selectedKeys.stream().map(key -> AnswerListOption.builder().key(key).answer(model).build())
+        model.setSelectedOptions(selectedKeys.stream()
+                .map(key -> AnswerListOption.builder().key(key).answer(model).build())
                 .collect(Collectors.toList()));
 
         return model;

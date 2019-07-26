@@ -21,6 +21,7 @@ import org.entando.web.request.PagedListRequest;
 import org.entando.web.response.PagedMetadata;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,9 +88,11 @@ public class SurveyService {
                 .orElseThrow(SurveySubmissionNotFoundException::new);
     }
 
-    public PagedMetadata<SurveySubmission> listSubmissions(String uuid, PagedListRequest request) {
+    public PagedMetadata<SurveySubmission> listSubmissions(String uuidString, PagedListRequest request) {
+        final UUID uuid = UUID.fromString(uuidString);
         final Pageable pageable = PagedListRequestDataUtils.toPageable(request);
-        final Page<SurveySubmission> page = surveySubmissionRepository.findAll(pageable);
+        final Specification<SurveySubmission> specification = (root, cq, cb) -> cb.equal(root.join("survey").get("id"), uuid);
+        final Page<SurveySubmission> page = surveySubmissionRepository.findAll(specification, pageable);
         return new PagedMetadata<>(request, page.getContent(), (int) page.getTotalElements());
     }
 }
