@@ -23,7 +23,7 @@ public class AnswerListDto extends AnswerDto {
 
     @Builder
     public AnswerListDto(String questionId, List<String> selectedKeys) {
-        super(questionId, Question.QuestionType.list);
+        super(questionId);
 
         this.selectedKeys = selectedKeys;
     }

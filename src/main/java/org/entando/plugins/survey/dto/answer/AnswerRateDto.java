@@ -18,7 +18,7 @@ public class AnswerRateDto extends AnswerDto {
 
     @Builder
     public AnswerRateDto(String questionId, int selectedRate) {
-        super(questionId, Question.QuestionType.rate);
+        super(questionId);
 
         this.selectedRate = selectedRate;
     }

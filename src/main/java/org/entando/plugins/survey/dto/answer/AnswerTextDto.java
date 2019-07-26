@@ -20,7 +20,7 @@ public class AnswerTextDto extends AnswerDto {
 
     @Builder
     public AnswerTextDto(String questionId, String answerText) {
-        super(questionId, Question.QuestionType.list);
+        super(questionId);
         this.answerText = answerText;
     }
 

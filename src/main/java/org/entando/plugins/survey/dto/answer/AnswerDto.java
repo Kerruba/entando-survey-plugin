@@ -23,8 +23,5 @@ public abstract class AnswerDto {
     @NotEmpty
     protected String questionId;
 
-    @NotNull
-    protected Question.QuestionType type;
-
     public abstract Answer toModel();
 }

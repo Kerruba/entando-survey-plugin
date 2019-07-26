@@ -9,26 +9,25 @@ import org.entando.plugins.survey.dto.request.CreateSurveyRequest;
 import org.entando.plugins.survey.dto.request.SubmitSurveyRequest;
 import org.entando.plugins.survey.dto.submission.SurveySubmissionDto;
 import org.entando.plugins.survey.dto.survey.SurveyDto;
+import org.entando.plugins.survey.model.SurveySubmission;
 import org.entando.plugins.survey.service.SurveyService;
+import org.entando.plugins.survey.service.SurveySubmissionPdfExportService;
 import org.entando.web.request.PagedListRequest;
 import org.entando.web.response.PagedRestResponse;
 import org.entando.web.response.SimpleRestResponse;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
+import java.util.List;
 
-import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_CREATE;
-import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_GET;
-import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_LIST;
-import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_SUBMISSION_CREATE;
-import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_SUBMISSION_GET;
-import static org.entando.plugins.survey.controller.AuthPermissions.SURVEY_SUBMISSION_LIST;
+import static org.entando.plugins.survey.controller.AuthPermissions.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
@@ -39,6 +38,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class SurveysController {
 
     private final @NonNull SurveyService surveyService;
+    private final @NonNull
+    SurveySubmissionPdfExportService exportService;
 
     @Secured(SURVEY_GET)
     @ApiOperation(notes = "Gets a survey", nickname = "getSurvey", value = "GET Survey")
@@ -94,6 +95,53 @@ public class SurveysController {
         log.info("Requesting survey submission with ID {} and survey ID {}", submissionUuid, uuid);
         return new SimpleRestResponse<>(SurveySubmissionDto.fromModel(
                 surveyService.getSubmission(uuid, submissionUuid)));
+    }
+
+    @Secured(SURVEY_SUBMISSION_EXPORT)
+    @ApiOperation(notes = "Exports to PDF a list of survey submissions", nickname = "exportPdfSurveySubmissions", value = "EXPORT SurveySubmissions")
+    @GetMapping(path = "/{uuid}/submissions/export", produces = { APPLICATION_JSON_VALUE })
+    //TODO support query filters
+    public ResponseEntity<InputStreamResource> exportSubmissions(@PathVariable final String uuid, final PagedListRequest listRequest) {
+        List<SurveySubmission> submissions = surveyService.listSubmissions(uuid, listRequest).getBody();
+        try {
+            byte[] exported = exportService.createPdf(submissions);
+            HttpHeaders respHeaders = new HttpHeaders();
+            MediaType mediaType = MediaType.parseMediaType("application/pdf");
+            respHeaders.setContentType(mediaType);
+            respHeaders.setContentLength(exported.length);
+            respHeaders.setContentDispositionFormData("attachment", "survey_submissions"); //TODO better name?
+            InputStreamResource isr = new InputStreamResource(new ByteArrayInputStream(exported));
+            return new ResponseEntity<>(isr, respHeaders, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            //TODO handle Exception
+            log.error("Error generating PDF", e);
+            //return new ResponseEntity<InputStreamResource>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new RuntimeException();
+        }
+    }
+
+    @Secured(SURVEY_SUBMISSION_EXPORT)
+    @ApiOperation(notes = "Exports to PDF a survey submission", nickname = "exportPdfSurveySubmission", value = "EXPORT SurveySubmission")
+    @GetMapping(path = "/{uuid}/submissions/{submissionUuid}/export", produces = { APPLICATION_JSON_VALUE })
+    public ResponseEntity<InputStreamResource> exportSubmission(@PathVariable final String uuid, @PathVariable final String submissionUuid) {
+        SurveySubmission submission = surveyService.getSubmission(uuid, submissionUuid);
+        try {
+            byte[] exported = exportService.createPdf(submission);
+            HttpHeaders respHeaders = new HttpHeaders();
+            MediaType mediaType = MediaType.parseMediaType("application/pdf");
+            respHeaders.setContentType(mediaType);
+            respHeaders.setContentLength(exported.length);
+            respHeaders.setContentDispositionFormData("attachment", "survey_submissions"); //TODO better name?
+            InputStreamResource isr = new InputStreamResource(new ByteArrayInputStream(exported));
+            return new ResponseEntity<>(isr, respHeaders, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            //TODO handle Exception
+            log.error("Error generating PDF", e);
+            //return new ResponseEntity<InputStreamResource>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new RuntimeException();
+        }
     }
 
 }
