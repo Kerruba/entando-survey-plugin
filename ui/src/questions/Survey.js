@@ -74,7 +74,6 @@ export default class Survey extends Component {
   };
 
   setAnswers(answers) {
-    console.log(answers);
     let finished = true;
     for (let key in answers) {
       if (answers.hasOwnProperty(key)) {

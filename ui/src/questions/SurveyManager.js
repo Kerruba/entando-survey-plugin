@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Survey from './Survey';
-import Loader from '../common/Loader';
 import PropTypes from 'prop-types';
 import Result from 'antd/es/result';
-import Button from 'antd/es/button';
 import Spin from 'antd/es/spin';
 import { fetchSurvey, submitSurvey } from '../api/SurveyApi';
+import Feedback from '../common/Feedback';
 
 export default class SurveyManager extends Component {
   state = {
@@ -44,26 +43,24 @@ export default class SurveyManager extends Component {
     }
   };
 
-  render() {
-    if (this.state.success) {
-      return <Result status="success"
-                     title="The survey has been submitted successfully"
-                     subTitle="We really appreciate your contribution" />
-    }
-    if (this.state.error) {
-      return <Result status="error"
-                     title={this.state.error}
-                     subTitle="Please try again"
-                     extra={[<Button onClick={this.clearError}>Back</Button>]} />
-    }
-    if (this.state.loading) {
-      return <Loader />;
-    }
-
+  renderContent = () => {
     const survey = <Survey questions={this.state.questions} onSubmit={this.onSubmit} />;
     return this.state.submitting
       ? <Spin tip="Submitting Survey">{survey}</Spin>
       : survey;
+  };
+
+  render() {
+    const { success, error, loading } = this.state;
+    return success ? (
+      <Result status="success"
+              title="The survey has been submitted successfully"
+              subTitle="We really appreciate your contribution" />
+    ) : (
+      <Feedback error={error} loading={loading} onRetry={this.clearError}>
+        {this.renderContent}
+      </Feedback>
+    );
   }
 }
 

@@ -12,13 +12,15 @@ import 'antd/lib/comment/style/css';
 
 import SurveyList from './SurveyList';
 import SurveyDetails from './SurveyDetails';
+import SurveySubmissionDetails from './SurveySubmissionDetails';
 
 export default class SurveyAdmin extends Component {
   render() {
     return (
       <Router>
         <Route path="/" exact={true} component={SurveyList} />
-        <Route path="/:id" component={SurveyDetails} />
+        <Route path="/:id" exact={true} component={SurveyDetails} />
+        <Route path="/:surveyId/submissions/:submissionId" component={SurveySubmissionDetails} />
       </Router>
     )
   }

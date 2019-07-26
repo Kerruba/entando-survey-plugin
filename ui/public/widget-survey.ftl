@@ -8,7 +8,7 @@
     <script src="<@wp.info key="systemParam" paramName="applicationBaseURL" />resources/entando-survey/static/js/2.chunk.js"></script>
     <script src="<@wp.info key="systemParam" paramName="applicationBaseURL" />resources/entando-survey/static/js/main.chunk.js"></script>
 
-    <en-survey-admin service-url="{{insert service url}}" />
+    <en-survey service-url="{{insert service url}}" survey-id="{{ inser survey id }}"/>
 <#else>
     You have to be logged in to fill the survey
 </#if>

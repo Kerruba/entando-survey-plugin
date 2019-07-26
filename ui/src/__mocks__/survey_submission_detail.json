@@ -1,0 +1,27 @@
+{
+  "payload": {
+    "surveyId": "982fb709-6148-4fc8-890f-1058ade6e134",
+    "submissionId": "953f4ace-067e-43c5-a212-71ede1d6fbca",
+    "submissionDate": "2019-07-25T04:31:33Z",
+    "answers": [
+      {
+        "type": "rate",
+        "questionId": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
+        "selectedRate": 5
+      },
+      {
+        "type": "text",
+        "questionId": "3e7a1072-e20f-4362-8a27-b5aba6ac07a0",
+        "answerText": "This is an answer for that awesome question that I don't remember!"
+      },
+      {
+        "type": "list",
+        "questionId": "7aae5609-da9a-491b-bc5c-921ac2a2d7ab",
+        "selectedKeys": [
+          "javascript"
+        ]
+      }
+    ]
+  },
+  "errors": []
+}

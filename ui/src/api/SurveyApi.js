@@ -1,4 +1,5 @@
 import axios from 'axios';
+import FileDownload from 'js-file-download';
 
 const USE_MOCKS = process.env.USE_MOCKS;
 const config = { serviceUrl: '/entando-survey' };
@@ -39,11 +40,27 @@ export const adminListSurveySubmissions = async (surveyId, { page = 1 }) => {
   return data;
 };
 
+export const adminDownloadSurveySubmissionsPDF = async (surveyId, submissionIds) => {
+  if (USE_MOCKS) {
+    return;
+  }
+  const { data } = await axios.get(`${config.serviceUrl}/surveys/${surveyId}/submissions/export`);
+  FileDownload(data, 'surveys.pdf');
+};
+
 export const adminGetSurveyDetail = async (surveyId) => {
   if (USE_MOCKS) {
     return require('../__mocks__/survey_details.json');
   }
   const { data } = await axios.get(`${config.serviceUrl}/surveys/${surveyId}`);
+  return data;
+};
+
+export const adminGetSurveySubmissionDetail = async (surveyId, submissionId) => {
+  if (USE_MOCKS) {
+    return require('../__mocks__/survey_submission_detail.json');
+  }
+  const { data } = await axios.get(`${config.serviceUrl}/surveys/${surveyId}/submissions/${submissionId}`);
   return data;
 };
 
