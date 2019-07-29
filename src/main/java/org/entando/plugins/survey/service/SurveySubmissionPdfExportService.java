@@ -119,10 +119,9 @@ public class SurveySubmissionPdfExportService {
         final BaseTable table = new BaseTable(HEIGHT-100, yStartNewPage, 20, tableWidth, margin, document, page, false, true);
 
         for (Question question : survey.getQuestions()){
-            final Answer questionAnswer = submission.getAnswers().stream()
-                    .filter(answer -> answer.getQuestion().getId().equals(question.getId()))
-                    .findFirst().orElse(null);
-            createQuestionTable(document, page, table, question, questionAnswer);
+            submission.getAnswers().stream()
+                .filter(answer -> answer.getQuestion().getId().equals(question.getId()))
+                .findFirst().ifPresent(answer -> createQuestionTable(document, page, table, question, answer));
         }
 
         table.draw();
@@ -138,39 +137,37 @@ public class SurveySubmissionPdfExportService {
 
     private static void createQuestionTable(final PDDocument document, final PDPage page, final BaseTable table, final Question question, Answer answer) {
         final Row<PDPage> questionRow = table.createRow(5f);
-        Cell<PDPage> questionCell = questionRow.createCell(100, String.format("%s)  %s", question.getOrder(), question.getQuestion()));
+        Cell<PDPage> questionCell = questionRow.createCell(100, question.getQuestion());
         questionCell.setFont(font_regular);
         questionCell.setFontSize(12);
         questionCell.setBottomPadding(0);
         questionCell.setLeftPadding(0);
         questionCell.setTextColor(Color.BLACK);
-
-        if (answer != null) {
-            String answerText = "";
-            switch (answer.getType()) {
-                case text:
-                    answerText = ((AnswerText)answer).getAnswerText();
-                    break;
-                case rate:
-                    answerText = String.valueOf(((AnswerRate)answer).getSelectedRate());
-                    break;
-                case list:
-                    answerText = ((AnswerList)answer).getSelectedOptions().stream()
-                            .map(AnswerListOption::getKey)
-                            .map(key -> getLabel(question, key))
-                            .collect(Collectors.joining(", "));
-                    break;
-            }
-
-
-            final Row<PDPage> answerRow = table.createRow(answer.getType().equals(Question.QuestionType.text) ? 30f : 5f);
-            final Cell<PDPage> answerCell = answerRow.createCell(100, answerText);
-            questionCell.setFont(font_medium);
-            answerCell.setFontSize(10);
-            answerCell.setBottomPadding(10);
-            answerCell.setLeftPadding(10);
-            answerCell.setTextColor(Color.GRAY);
+        
+        String answerText = "";
+        switch (answer.getType()) {
+            case text:
+                answerText = ((AnswerText)answer).getAnswerText();
+                break;
+            case rate:
+                answerText = String.valueOf(((AnswerRate)answer).getSelectedRate());
+                break;
+            case list:
+                answerText = ((AnswerList)answer).getSelectedOptions().stream()
+                        .map(AnswerListOption::getKey)
+                        .map(key -> getLabel(question, key))
+                        .collect(Collectors.joining(", "));
+                break;
         }
+
+
+        final Row<PDPage> answerRow = table.createRow(answer.getType().equals(Question.QuestionType.text) ? 30f : 5f);
+        final Cell<PDPage> answerCell = answerRow.createCell(100, answerText);
+        questionCell.setFont(font_medium);
+        answerCell.setFontSize(10);
+        answerCell.setBottomPadding(10);
+        answerCell.setLeftPadding(10);
+        answerCell.setTextColor(Color.GRAY);
     }
 }
 
