@@ -1,5 +1,6 @@
 package org.entando.plugins.survey.dto.submission;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class SurveySubmissionDto {
     private UUID surveyId;
     private UUID submissionId;
     private Date submissionDate;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private SurveyDto survey;
 
     @Singular List<AnswerDto> answers;
