@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 import org.entando.plugins.survey.dto.question.QuestionDto;
-import org.entando.plugins.survey.model.Question;
-import org.entando.plugins.survey.model.Survey;
+import org.entando.plugins.survey.model.question.Question;
+import org.entando.plugins.survey.model.survey.Survey;
 
 import java.util.List;
 import java.util.UUID;

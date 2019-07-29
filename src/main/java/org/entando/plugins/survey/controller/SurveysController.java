@@ -9,7 +9,7 @@ import org.entando.plugins.survey.dto.request.CreateSurveyRequest;
 import org.entando.plugins.survey.dto.request.SubmitSurveyRequest;
 import org.entando.plugins.survey.dto.submission.SurveySubmissionDto;
 import org.entando.plugins.survey.dto.survey.SurveyDto;
-import org.entando.plugins.survey.model.SurveySubmission;
+import org.entando.plugins.survey.model.survey.SurveySubmission;
 import org.entando.plugins.survey.service.SurveyService;
 import org.entando.plugins.survey.service.SurveySubmissionPdfExportService;
 import org.entando.web.request.PagedListRequest;

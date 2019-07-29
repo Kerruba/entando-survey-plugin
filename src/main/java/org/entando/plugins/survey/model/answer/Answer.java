@@ -1,10 +1,12 @@
-package org.entando.plugins.survey.model;
+package org.entando.plugins.survey.model.answer;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
+import org.entando.plugins.survey.model.survey.SurveySubmission;
+import org.entando.plugins.survey.model.question.Question;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;

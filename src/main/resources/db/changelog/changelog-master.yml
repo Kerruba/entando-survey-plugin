@@ -20,6 +20,22 @@ databaseChangeLog:
                   type: varchar(255)
 
         - createTable:
+            tableName: question_enable_expressions
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: question_parent_key
+                  type: varchar(64)
+              - column:
+                  name: expression
+                  type: varchar(255)
+
+        - createTable:
             tableName: questions
             columns:
               - column:
@@ -28,6 +44,9 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
+              - column:
+                  name: key
+                  type: varchar(64)
               - column:
                   name: question
                   type: varchar(255)
@@ -46,6 +65,14 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_question_survey_id
                     references: surveys(id)
+                    onDelete: CASCADE
+              - column:
+                  name: enable_expression_id
+                  type: uuid
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_question_enable_expression
+                    references: question_enable_expressions(id)
                     onDelete: CASCADE
               - column:
                   name: min_length

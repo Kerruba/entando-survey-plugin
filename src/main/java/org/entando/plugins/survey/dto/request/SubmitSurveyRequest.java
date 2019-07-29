@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
-import org.entando.plugins.survey.model.Answer;
+import org.entando.plugins.survey.model.answer.Answer;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

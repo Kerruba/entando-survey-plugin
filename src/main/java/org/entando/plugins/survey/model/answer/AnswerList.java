@@ -6,12 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
 import org.entando.plugins.survey.dto.answer.AnswerListDto;
-import org.entando.plugins.survey.dto.answer.AnswerListOptionDto;
-import org.entando.plugins.survey.dto.question.QuestionListOptionDto;
-import org.entando.plugins.survey.model.Answer;
-import org.entando.plugins.survey.model.Question;
-import org.entando.plugins.survey.model.SurveySubmission;
-import org.entando.plugins.survey.model.question.QuestionListOption;
+import org.entando.plugins.survey.model.question.Question;
+import org.entando.plugins.survey.model.survey.SurveySubmission;
 
 import javax.persistence.*;
 import java.util.List;

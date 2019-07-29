@@ -1,6 +1,6 @@
 package org.entando.plugins.survey.repository.survey;
 
-import org.entando.plugins.survey.model.SurveySubmission;
+import org.entando.plugins.survey.model.survey.SurveySubmission;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

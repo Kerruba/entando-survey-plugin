@@ -6,10 +6,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
 import org.entando.plugins.survey.dto.question.QuestionDto;
+import org.entando.plugins.survey.dto.question.QuestionEnableExpressionDto;
 import org.entando.plugins.survey.dto.question.QuestionListDto;
 import org.entando.plugins.survey.dto.question.QuestionListOptionDto;
-import org.entando.plugins.survey.model.Question;
-import org.entando.plugins.survey.model.Survey;
+import org.entando.plugins.survey.model.survey.Survey;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,8 +40,8 @@ public class QuestionList extends Question {
     }
 
     @Builder
-    public QuestionList(final UUID id, String question, int order, Survey survey, boolean multipleChoice, @Singular List<QuestionListOption> options) {
-        super(QuestionType.list, question, order, survey);
+    public QuestionList(final UUID id, String question, String key, int order, Survey survey, final QuestionEnableExpression enableExpression, boolean multipleChoice, @Singular List<QuestionListOption> options) {
+        super(QuestionType.list, question, key, order, survey, enableExpression);
 
         setId(id);
         this.multipleChoice = multipleChoice;
@@ -54,6 +54,7 @@ public class QuestionList extends Question {
                 .id(getId().toString())
                 .order(getOrder())
                 .question(getQuestion())
+                .whenExpression(enableExpression == null ? null : new QuestionEnableExpressionDto(enableExpression))
                 .multipleChoice(multipleChoice)
                 .options(options.stream().map(QuestionListOptionDto::new).collect(Collectors.toList()))
                 .build();

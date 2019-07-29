@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Singular;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
 import org.entando.plugins.survey.dto.survey.SurveyDto;
-import org.entando.plugins.survey.model.Answer;
-import org.entando.plugins.survey.model.SurveySubmission;
+import org.entando.plugins.survey.model.answer.Answer;
+import org.entando.plugins.survey.model.survey.SurveySubmission;
 
 import java.util.Date;
 import java.util.List;

@@ -6,9 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.entando.plugins.survey.dto.answer.AnswerDto;
 import org.entando.plugins.survey.dto.answer.AnswerRateDto;
-import org.entando.plugins.survey.model.Answer;
-import org.entando.plugins.survey.model.Question;
-import org.entando.plugins.survey.model.SurveySubmission;
+import org.entando.plugins.survey.model.question.Question;
+import org.entando.plugins.survey.model.survey.SurveySubmission;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;

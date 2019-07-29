@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.entando.plugins.survey.model.Answer;
-import org.entando.plugins.survey.model.Question;
+import org.entando.plugins.survey.model.answer.Answer;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor

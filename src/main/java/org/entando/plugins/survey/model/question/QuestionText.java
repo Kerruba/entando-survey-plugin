@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.entando.plugins.survey.dto.question.QuestionDto;
+import org.entando.plugins.survey.dto.question.QuestionEnableExpressionDto;
 import org.entando.plugins.survey.dto.question.QuestionTextDto;
-import org.entando.plugins.survey.model.Question;
-import org.entando.plugins.survey.model.Survey;
+import org.entando.plugins.survey.model.survey.Survey;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -32,8 +32,8 @@ public class QuestionText extends Question {
     }
 
     @Builder
-    public QuestionText(String question, int order, Survey survey, int minLength, int maxLength) {
-        super(QuestionType.text, question, order, survey);
+    public QuestionText(String question, String key, int order, Survey survey, QuestionEnableExpression enableExpression, int minLength, int maxLength) {
+        super(QuestionType.text, question, key, order, survey, enableExpression);
 
         this.minLength = minLength;
         this.maxLength = maxLength;
@@ -45,6 +45,7 @@ public class QuestionText extends Question {
                 .id(getId().toString())
                 .order(getOrder())
                 .question(getQuestion())
+                .whenExpression(enableExpression == null ? null : new QuestionEnableExpressionDto(enableExpression))
                 .minLength(minLength)
                 .maxLength(maxLength)
                 .build();

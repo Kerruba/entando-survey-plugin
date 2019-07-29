@@ -1,22 +1,12 @@
-package org.entando.plugins.survey.model;
+package org.entando.plugins.survey.model.question;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.entando.plugins.survey.dto.question.QuestionDto;
+import org.entando.plugins.survey.model.survey.Survey;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -35,6 +25,9 @@ public abstract class Question {
     @Column(name = "id")
     private UUID id;
 
+    @Column(name = "key")
+    private String key;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "type", insertable = false, updatable = false)
     private QuestionType type;
@@ -49,16 +42,22 @@ public abstract class Question {
     @JoinColumn(name="survey_id")
     private Survey survey;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "enable_expression_id")
+    protected QuestionEnableExpression enableExpression;
+
     public Question(final UUID id) {
         this.id = id;
     }
 
-    public Question(final QuestionType type, final String question,
-                    final int order, final Survey survey) {
+    public Question(final QuestionType type, final String question, String key,
+                    final int order, final Survey survey, QuestionEnableExpression enableExpression) {
         this.type = type;
         this.question = question;
+        this.key = key;
         this.order = order;
         this.survey = survey;
+        this.enableExpression = enableExpression;
     }
 
     @PrePersist

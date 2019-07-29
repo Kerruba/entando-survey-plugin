@@ -1,4 +1,4 @@
-package org.entando.plugins.survey.model.answer;
+package org.entando.plugins.survey.model.question;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,20 +12,19 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "answer_list_options")
+@Table(name = "question_enable_expressions")
 @Builder
-public class AnswerListOption {
+public class QuestionEnableExpression {
 
     @Id
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "key")
-    private String key;
+    @Column(name = "expression")
+    private String expression;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name="answer_id")
-    private Answer answer;
+    @Column(name="question_parent_key")
+    private String parentKey;
 
     @PrePersist
     public void setUuid() {

@@ -1,6 +1,6 @@
 package org.entando.plugins.survey.repository.survey;
 
-import org.entando.plugins.survey.model.Survey;
+import org.entando.plugins.survey.model.survey.Survey;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.UUID;
