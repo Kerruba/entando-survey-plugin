@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import 'antd/lib/button/style/css';
+import 'antd/lib/select/style/css';
 import 'antd/lib/divider/style/css';
 import 'antd/lib/input/style/css';
 import 'antd/lib/radio/style/css';

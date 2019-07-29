@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Radio from 'antd/es/radio';
 import Checkbox from 'antd/es/checkbox';
+import Select from 'antd/es/select';
 import './Question.css';
+
+const { Option } = Select;
 
 export default class QuestionList extends Component {
 
   state = { values: [] };
+
+  onChangeValue = value => {
+    this.setState({ value });
+    this.onValueChange(value);
+  };
 
   onChange = e => {
     const { multipleChoice } = this.props;
@@ -26,8 +34,7 @@ export default class QuestionList extends Component {
       this.setState({ values });
       this.onValueChange(values);
     } else {
-      this.setState({ value });
-      this.onValueChange(value);
+      this.onChangeValue(value);
     }
   };
 
@@ -54,13 +61,32 @@ export default class QuestionList extends Component {
             ))}
           </div>
         ): (
-          <Radio.Group onChange={this.onChange} value={this.state.value}>
-            {options.map(item => (
-              <Radio key={item.key} className="option" value={item.key}>
-                {item.label}
-              </Radio>
-            ))}
-          </Radio.Group>
+          <div>
+            {options.length > 5 ? (
+              <Select
+                showSearch
+                onChange={this.onChangeValue}
+                style={{ width: '100%' }}
+                placeholder="Select one option"
+                optionFilterProp="children"
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+              >
+                {options.map(item => (
+                  <Option key={item.key} value={item.key}>
+                    {item.label}
+                  </Option>
+                ))}
+              </Select>
+            ) : (
+              <Radio.Group onChange={this.onChange} value={this.state.value}>
+                {options.map(item => (
+                  <Radio key={item.key} className="option" value={item.key}>
+                    {item.label}
+                  </Radio>
+                ))}
+              </Radio.Group>
+            )}
+          </div>
         )}
       </div>
     );

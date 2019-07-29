@@ -6,6 +6,7 @@ import org.entando.plugins.survey.dto.request.SubmitSurveyRequest;
 import org.entando.plugins.survey.exception.SurveyNotFoundException;
 import org.entando.plugins.survey.exception.SurveySubmissionNotFoundException;
 import org.entando.plugins.survey.model.answer.Answer;
+import org.entando.plugins.survey.model.question.Question;
 import org.entando.plugins.survey.model.survey.Survey;
 import org.entando.plugins.survey.model.survey.SurveySubmission;
 import org.entando.plugins.survey.model.answer.AnswerList;
@@ -26,9 +27,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -43,7 +47,13 @@ public class SurveyService {
 
     public Survey get(final String uuid) {
         return surveyRepository.findById(UUID.fromString(uuid))
+                .map(this::processSurvey)
                 .orElseThrow(SurveyNotFoundException::new);
+    }
+
+    private Survey processSurvey(final Survey survey) {
+        survey.getQuestions().sort(Comparator.comparing(Question::getOrder));
+        return survey;
     }
 
     public Survey create(final CreateSurveyRequest request)  {
@@ -53,6 +63,7 @@ public class SurveyService {
     public PagedMetadata<Survey> list(final PagedListRequest listRequest) {
         final Pageable pageable = PagedListRequestDataUtils.toPageable(listRequest);
         final Page<Survey> page = surveyRepository.findAll(pageable);
+        page.getContent().forEach(this::processSurvey);
         return new PagedMetadata<>(listRequest, page.getContent(), (int) page.getTotalElements());
     }
 
@@ -85,6 +96,10 @@ public class SurveyService {
 
     public SurveySubmission getSubmission(String surveyUuid, String submissionUuid) {
         return surveySubmissionRepository.findByIdAndSurveyId(UUID.fromString(submissionUuid), UUID.fromString(surveyUuid))
+                .map(submission -> {
+                    processSurvey(submission.getSurvey());
+                    return submission;
+                })
                 .orElseThrow(SurveySubmissionNotFoundException::new);
     }
 
@@ -102,6 +117,7 @@ public class SurveyService {
         }
 
         final Page<SurveySubmission> page = surveySubmissionRepository.findAll(specification, pageable);
+        page.getContent().forEach(sub -> this.processSurvey(sub.getSurvey()));
         return new PagedMetadata<>(request, page.getContent(), (int) page.getTotalElements());
     }
 }

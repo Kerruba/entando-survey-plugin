@@ -6,6 +6,7 @@
     "questions": [
       {
         "id": "7aae5609-da9a-491b-bc5c-921ac2a2d7ab",
+        "key": "programming-language",
         "type": "list",
         "question": "What is the best programming language in your opinion?",
         "options": [
@@ -20,9 +21,32 @@
           {
             "key": "java",
             "label": "Java"
+          },
+          {
+            "key": "python",
+            "label": "Python"
+          },
+          {
+            "key": "ruby",
+            "label": "Ruby"
+          },
+          {
+            "key": "c",
+            "label": "C"
           }
         ],
         "multipleChoice": false
+      },
+      {
+        "id": "ce560312-ace2-44dd-830a-967a7a215a34",
+        "type": "text",
+        "question": "What do you like most in Java?",
+        "minLength": 10,
+        "maxLength": 200,
+        "when": {
+          "question": "programming-language",
+          "expression": "= java"
+        }
       },
       {
         "id": "3e7a1072-e20f-4362-8a27-b5aba6ac07a0",
@@ -34,9 +58,21 @@
       {
         "id": "3170e3b0-7795-4749-833f-30ca6f4c83a0",
         "type": "rate",
+        "key": "rate-programming-language",
         "question": "From 0 to 10, what is your level of expertise with this programming language",
         "minRate": 0,
         "maxRate": 10
+      },
+      {
+        "id": "48630b2e-593e-4b72-a509-b20591f026a2",
+        "type": "text",
+        "question": "What make you evaluate the programming language so low?",
+        "minLength": 10,
+        "maxLength": 200,
+        "when": {
+          "question": "rate-programming-language",
+          "expression": "<= 4"
+        }
       }
     ]
   }

@@ -23,7 +23,7 @@ public class QuestionEnableExpression {
     @Column(name = "expression")
     private String expression;
 
-    @Column(name="question_parent_key")
+    @Column(name = "question_parent_key")
     private String parentKey;
 
     @PrePersist

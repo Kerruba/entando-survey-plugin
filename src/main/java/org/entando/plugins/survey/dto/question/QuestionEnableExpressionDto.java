@@ -10,12 +10,12 @@ import org.entando.plugins.survey.model.question.QuestionListOption;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class QuestionEnableExpressionDto {
+
     @JsonProperty("question")
     private String questionKey;
 
-    @JsonProperty("response")
+    @JsonProperty("expression")
     private String expression;
 
     public QuestionEnableExpressionDto(final QuestionEnableExpression expression) {

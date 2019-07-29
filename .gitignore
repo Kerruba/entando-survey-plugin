@@ -18,3 +18,6 @@ buildNumber.properties
 mydb/
 derby.log
 .project
+
+ui/node_modules/
+ui/build/
