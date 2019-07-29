@@ -43,6 +43,7 @@ public class QuestionText extends Question {
     public QuestionDto toDto() {
         return QuestionTextDto.builder()
                 .id(getId().toString())
+                .key(getKey())
                 .order(getOrder())
                 .question(getQuestion())
                 .whenExpression(enableExpression == null ? null : new QuestionEnableExpressionDto(enableExpression))

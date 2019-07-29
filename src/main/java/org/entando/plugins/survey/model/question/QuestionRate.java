@@ -41,6 +41,7 @@ public class QuestionRate extends Question {
     public QuestionDto toDto() {
         return QuestionRateDto.builder()
                 .id(getId().toString())
+                .key(getKey())
                 .order(getOrder())
                 .question(getQuestion())
                 .whenExpression(enableExpression == null ? null : new QuestionEnableExpressionDto(enableExpression))
