@@ -7,13 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Singular;
 import org.entando.plugins.survey.model.question.Question;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +32,7 @@ public class Survey {
     @Singular
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "survey_id")
+    @OrderBy("order ASC")
     private List<Question> questions;
 
 }
