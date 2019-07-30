@@ -14,15 +14,15 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.entando.plugins.survey.model.answer.Answer;
-import org.entando.plugins.survey.model.question.Question;
-import org.entando.plugins.survey.model.survey.Survey;
-import org.entando.plugins.survey.model.survey.SurveySubmission;
 import org.entando.plugins.survey.model.answer.AnswerList;
 import org.entando.plugins.survey.model.answer.AnswerListOption;
 import org.entando.plugins.survey.model.answer.AnswerRate;
 import org.entando.plugins.survey.model.answer.AnswerText;
+import org.entando.plugins.survey.model.question.Question;
 import org.entando.plugins.survey.model.question.QuestionList;
 import org.entando.plugins.survey.model.question.QuestionListOption;
+import org.entando.plugins.survey.model.survey.Survey;
+import org.entando.plugins.survey.model.survey.SurveySubmission;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -30,8 +30,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,12 +87,8 @@ public class SurveySubmissionPdfExportService {
         contentStream.showText(survey.getDescription());
         contentStream.endText();
 
-        //TODO logo should come from survey?
-        final String logo = "https://i.ibb.co/zfTttqs/inail-logo.png";
-
-        if (logo != null) {
-            final URL url = new URL(logo);
-            final BufferedImage bim = ImageIO.read(url);
+        try (final InputStream resourceAsStream = SurveySubmissionPdfExportService.class.getClassLoader().getResourceAsStream("inail-logo.png")) {
+            final BufferedImage bim = ImageIO.read(resourceAsStream);
             if (bim != null) {
                 final PDImageXObject pdImage = LosslessFactory.createFromImage(document, bim);
                 float ratio = (float)pdImage.getHeight() / (float)pdImage.getWidth();
