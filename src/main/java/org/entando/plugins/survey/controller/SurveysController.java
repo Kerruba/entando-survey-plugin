@@ -118,7 +118,7 @@ public class SurveysController {
 
     @Secured(SURVEY_SUBMISSION_EXPORT)
     @ApiOperation(notes = "Exports to PDF a list of survey submissions", nickname = "exportPdfSurveySubmissions", value = "EXPORT SurveySubmissions")
-    @GetMapping(path = "/{uuid}/submissions/export", produces = { APPLICATION_PDF_VALUE })
+    @GetMapping(path = "/{uuid}/submissions/export", produces = { APPLICATION_PDF_VALUE, APPLICATION_JSON_VALUE })
     public ResponseEntity<InputStreamResource> exportSubmissions(
             @PathVariable final String uuid,
             final PagedListRequest listRequest,
@@ -133,7 +133,7 @@ public class SurveysController {
 
     @Secured(SURVEY_SUBMISSION_EXPORT)
     @ApiOperation(notes = "Exports to PDF a survey submission", nickname = "exportPdfSurveySubmission", value = "EXPORT SurveySubmission")
-    @GetMapping(path = "/{uuid}/submissions/{submissionUuid}/export", produces = { APPLICATION_PDF_VALUE })
+    @GetMapping(path = "/{uuid}/submissions/{submissionUuid}/export", produces = { APPLICATION_PDF_VALUE, APPLICATION_JSON_VALUE })
     public ResponseEntity<InputStreamResource> exportSubmission(@PathVariable final String uuid, @PathVariable final String submissionUuid, final HttpServletResponse response) {
         final SurveySubmission submission = surveyService.getSubmission(uuid, submissionUuid);
         return createResponse(Collections.singletonList(submission));
