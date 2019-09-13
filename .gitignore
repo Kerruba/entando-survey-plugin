@@ -21,3 +21,9 @@ derby.log
 
 ui/node_modules/
 ui/build/
+
+# VScode files
+.classpath
+.factorypath
+.settings/
+.vscode/
