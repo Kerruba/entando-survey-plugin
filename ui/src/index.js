@@ -22,6 +22,7 @@ class EntandoSurvey extends HTMLElement {
     this.appendChild(mountPoint);
 
     surveyApi.setServiceUrl(this.getAttribute('service-url'));
+    surveyApi.setToken(localStorage.getItem("token"));
 
     const surveyId = this.getAttribute('survey-id');
     ReactDOM.render(React.createElement(SurveyManager, { surveyId: surveyId }, null), mountPoint);
@@ -34,6 +35,7 @@ class EntandoAdmin extends HTMLElement {
     this.appendChild(mountPoint);
 
     surveyApi.setServiceUrl(this.getAttribute('service-url'));
+    surveyApi.setToken(localStorage.getItem("token"));
     ReactDOM.render(React.createElement(SurveyAdmin, {}, null), mountPoint);
   }
 }

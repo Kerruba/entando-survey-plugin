@@ -197,7 +197,7 @@ databaseChangeLog:
                     onDelete: CASCADE
 
         - sqlFile:
-            dbms: h2
+            dbms: h2, postgresql, mysql
             encoding: utf8
             path: db/changelog/seed_data.sql
             splitStatements: true

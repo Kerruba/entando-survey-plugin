@@ -76,8 +76,8 @@
         <maven.snapshot.repository.url>https://oss.sonatype.org/content/repositories/snapshots</maven.snapshot.repository.url>
         <maven.relase.repository.id>sonatype-nexus-staging</maven.relase.repository.id>
         <maven.release.repository.url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</maven.release.repository.url>
-        <jib-maven-plugin.version>0.9.11</jib-maven-plugin.version>
-
+        <jib-maven-plugin.version>1.2.0</jib-maven-plugin.version>
+        <jib.registry>docker.io</jib.registry>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
